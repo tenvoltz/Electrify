@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Field
   - Moving Particle
+  - Field Manager
   layers:
   - Default
   - TransparentFX

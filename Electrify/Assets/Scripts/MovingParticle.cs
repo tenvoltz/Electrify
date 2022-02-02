@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MovingParticle : Particle
 {
-    private float electronMass = 0.000549f;
+    private float electronMass = 0.549f;
     private float protonMass = 1.007316f;
 
     [HideInInspector] public Rigidbody rb;
@@ -17,5 +17,6 @@ public class MovingParticle : Particle
         rb = gameObject.AddComponent<Rigidbody>();
         rb.mass = mass;
         rb.useGravity = false;
+        rb.freezeRotation = true;
     }
 }

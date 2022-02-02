@@ -30,11 +30,11 @@ public class ParticleManager : MonoBehaviour
                 first = false;
                 yield return new WaitForSeconds(Random.Range(0, timeInterval));
             }
-            applyElectricForce(mp);
+            ApplyElectricForce(mp);
             yield return new WaitForSeconds(timeInterval);
         }
     }
-    private void applyElectricForce(MovingParticle mp)
+    private void ApplyElectricForce(MovingParticle mp)
     {
         Vector3 force = Vector3.zero;
         foreach (Particle p in pList)

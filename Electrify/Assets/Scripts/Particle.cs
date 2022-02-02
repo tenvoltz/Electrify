@@ -10,6 +10,11 @@ public class Particle : MonoBehaviour
     private Color pink = new Color(0.961f, 0.663f, 0.722f, 1f);
     private Color white = new Color(1f, 1f, 1f, 1f);
 
+    [Header("Sprite")]
+    [SerializeField] private Sprite proton;
+    [SerializeField] private Sprite electron;
+    [SerializeField] private Sprite unidentified;
+
     private void Start()
     {
         UpdateSurface();
@@ -17,6 +22,12 @@ public class Particle : MonoBehaviour
     public void UpdateSurface()
     {
         Color color = charge > 0 ? lightBlue : pink;
-        GetComponent<Renderer>().material.color = color;
+        Sprite sprite = charge > 0 ? proton : electron;
+        Transform center = gameObject.transform.Find("Center");
+        foreach (Transform child in center)
+            child.GetComponent<Renderer>().material.color = color;
+        Transform sign = gameObject.transform.Find("Sign");
+        foreach(Transform child in sign)
+            child.GetComponent<SpriteRenderer>().sprite = sprite;
     }
 }
