@@ -16,7 +16,8 @@ public class MovingParticle : Particle
         UpdateSurface();
         UpdateSize();
         mass = charge > 0 ? charge * protonMass : -charge * electronMass;
-        rb = gameObject.AddComponent<Rigidbody>();
+        if (GetComponent<Rigidbody>() != null) rb = GetComponent<Rigidbody>();
+        else rb = gameObject.AddComponent<Rigidbody>();
         rb.mass = mass;
         rb.velocity = initialVelocity;
         rb.useGravity = false;
