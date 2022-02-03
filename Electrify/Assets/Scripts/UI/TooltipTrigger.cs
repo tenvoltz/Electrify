@@ -10,7 +10,6 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [TextArea(5,10), Multiline()] 
     public string description;
 
-    private bool active = false;
     private static LTDescr delay;
     public void OnPointerExit(PointerEventData eventData)
     {

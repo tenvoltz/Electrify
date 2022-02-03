@@ -59,7 +59,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arrowPrefab: {fileID: 934534557826137270, guid: eadad4021de0ba6458652c0737267a2c, type: 3}
   strength: 1
-  color: {r: 1, g: 1, b: 0.75849056, a: 1}
+  color: {r: 1, g: 1, b: 0, a: 1}
   faList:
   - {fileID: 0}
   direction: {x: 0, y: 0, z: 0}

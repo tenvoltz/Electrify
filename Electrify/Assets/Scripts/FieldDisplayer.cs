@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,22 +26,20 @@ public class FieldDisplayer : MonoBehaviour
     {
         MeshFilter filter = GetComponent<MeshFilter>();
         Bounds b = filter.mesh.bounds;
+        Debug.Log(b.size.x + " " + b.size.z);
         int xAmount = (int)(b.size.x / xSpace);
         int zAmount = (int)(b.size.z / zSpace);
         mask = new Texture2D(xAmount, zAmount, TextureFormat.RGBA32, true);
-        Debug.Log(xAmount + " " + zAmount);
         for (int z = 0; z < mask.height; z++){
             for (int x = 0; x < mask.width; x++){
                 Vector3 location = transform.TransformPoint(new Vector3((x+0.5f) * xSpace, 0.0f, (z+0.5f) * zSpace) - b.extents);
                 Color color = Color.clear;
                 foreach(MagneticField mf in mfs)
                 {
-                    Debug.Log(mf.GetColor(location));
                     color += mf.GetColor(location);
                 }
                 color /= mfs.Count;
-                if(color == Color.clear){ color = Color.white; }
-                mask.SetPixel(x, z, Color.white - color);
+                mask.SetPixel(xAmount -x -1, z, color);
             }
         }
         mask.Apply();

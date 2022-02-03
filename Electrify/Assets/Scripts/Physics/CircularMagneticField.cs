@@ -16,12 +16,7 @@ public class CircularMagneticField : MagneticField
 
     public override Color GetColor(Vector3 position)
     {
-        if (isInside(position))
-        {
-            Color output = (Color.white - color) * 50 * GetStrength(position);
-            output.a = 1;
-            return output;
-        }
+        if (isInside(position)) return color * 50 * GetStrength(position);
         else return Color.clear;
     }
 }

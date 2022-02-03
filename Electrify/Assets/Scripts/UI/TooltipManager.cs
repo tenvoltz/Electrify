@@ -12,10 +12,8 @@ public class TooltipManager : MonoBehaviour
     }
     public static void Show(string headerText = "", string descriptionText = "")
     {
-        current.tooltip.SetText(headerText, descriptionText);
         current.tooltip.gameObject.SetActive(true);
-        current.tooltip.FadeIn();
-
+        current.tooltip.SetText(headerText, descriptionText);
     }
     public static void Hide()
     {

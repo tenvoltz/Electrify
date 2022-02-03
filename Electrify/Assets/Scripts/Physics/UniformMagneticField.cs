@@ -19,12 +19,7 @@ public class UniformMagneticField :  MagneticField
     }
     public override Color GetColor(Vector3 position)
     {
-        if (isInside(position))
-        {
-            Color output = Color.white - color;
-            output.a = 1;
-            return output;
-        }
+        if (isInside(position)) return color;
         else return Color.clear;
     }
     public override void Render()
