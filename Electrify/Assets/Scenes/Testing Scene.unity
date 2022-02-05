@@ -366,7 +366,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2184192622266594078, guid: 1d86393a844df4349a6da0ff30602e8f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4484336894548941997, guid: 1d86393a844df4349a6da0ff30602e8f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1181,9 +1181,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rowCount: 5
   columnCount: 5
-  rowDirection: {x: 1, y: 0, z: 0}
-  columnDirection: {x: 0, y: 0, z: 1}
-  randomOffset: {x: 0, y: 0, z: 0}
+  rowDirection: {x: 2, y: 0, z: 0}
+  columnDirection: {x: 0, y: 0, z: 2}
+  randomOffset: {x: 0.5, y: 0, z: 0.5}
 --- !u!4 &713359314 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6296951427110590774, guid: d3d0a76792470594ba8657a772264814, type: 3}
