@@ -26,7 +26,6 @@ public class FieldDisplayer : MonoBehaviour
     {
         MeshFilter filter = GetComponent<MeshFilter>();
         Bounds b = filter.mesh.bounds;
-        Debug.Log(b.size.x + " " + b.size.z);
         int xAmount = (int)(b.size.x / xSpace);
         int zAmount = (int)(b.size.z / zSpace);
         mask = new Texture2D(xAmount, zAmount, TextureFormat.RGBA32, true);

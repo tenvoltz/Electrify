@@ -1066,12 +1066,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 698522c7075a0e140bda2f4d24775c25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  particleType: 1
+  magnitude: 1
   charge: 1
-  proton: {fileID: 21300000, guid: df5c689c0aa1617479e9de531cd70d74, type: 3}
-  electron: {fileID: 21300000, guid: 02a0ff22a4363cd41becb6c122d6b093, type: 3}
-  unidentified: {fileID: 21300000, guid: 9368d3e124be6d940b67e2ec98acc8d5, type: 3}
+  protonSprite: {fileID: 21300000, guid: df5c689c0aa1617479e9de531cd70d74, type: 3}
+  electronSprite: {fileID: 21300000, guid: 02a0ff22a4363cd41becb6c122d6b093, type: 3}
+  neutronSprite: {fileID: 21300000, guid: 6350d351ac7108a4781b7ded1dfadc40, type: 3}
+  unidentifiedSprite: {fileID: 21300000, guid: 9368d3e124be6d940b67e2ec98acc8d5, type: 3}
+  protonColor: {r: 0.9607843, g: 0.6627451, b: 0.72156864, a: 1}
+  electronColor: {r: 0.35686275, g: 0.80784315, b: 0.98039216, a: 1}
+  neutronColor: {r: 0.6992763, g: 1, b: 0, a: 1}
   rb: {fileID: 0}
   mass: 1
+  initialVelocity: {x: 0, y: 0, z: 0}
 --- !u!96 &4565558724748971767
 TrailRenderer:
   serializedVersion: 2

@@ -4,16 +4,26 @@ using UnityEngine;
 
 public class Particle : MonoBehaviour
 {
-    public float charge = 1;
-
-    private Color lightBlue = new Color(0.357f, 0.808f, 0.980f, 1f);
-    private Color pink = new Color(0.961f, 0.663f, 0.722f, 1f);
-    private Color white = new Color(1f, 1f, 1f, 1f);
+    public enum ParticleType
+    {
+        Proton = 1,
+        Neutron = 0,
+        Electron = -1
+    }
+    public ParticleType particleType;
+    public float magnitude = 0;
+    [HideInInspector] public float charge = 1;
 
     [Header("Sprite")]
-    [SerializeField] private Sprite proton;
-    [SerializeField] private Sprite electron;
-    [SerializeField] private Sprite unidentified;
+    [SerializeField] private Sprite protonSprite;
+    [SerializeField] private Sprite electronSprite;
+    [SerializeField] private Sprite neutronSprite;
+    [SerializeField] private Sprite unidentifiedSprite;
+    [Header("Color")]
+    public Color protonColor;
+    public Color electronColor;
+    public Color neutronColor;
+    private Color white = new Color(1f, 1f, 1f, 1f);
 
     private void Start()
     {
@@ -21,8 +31,29 @@ public class Particle : MonoBehaviour
     }
     public void UpdateSurface()
     {
-        Color color = charge > 0 ? lightBlue : pink;
-        Sprite sprite = charge > 0 ? proton : electron;
+        Color color = white;
+        Sprite sprite = unidentifiedSprite;
+        switch (particleType)
+        {
+            case ParticleType.Proton:
+                charge = magnitude;
+                color = protonColor;
+                sprite = protonSprite;
+                break;
+            case ParticleType.Neutron:
+                charge = 0;
+                color = neutronColor;
+                sprite = neutronSprite;
+                break;
+            case ParticleType.Electron:
+                charge = -1 * magnitude;
+                color = electronColor;
+                sprite = electronSprite;
+                break;
+            default:
+                Debug.Log("Something has gone wrong", this);
+                break;
+        }
         Transform center = gameObject.transform.Find("Center");
         foreach (Transform child in center)
             child.GetComponent<Renderer>().material.color = color;

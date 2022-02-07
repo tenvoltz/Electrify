@@ -6,16 +6,31 @@ public class MovingParticle : Particle
 {
     private float electronMass = 0.549f;
     private float protonMass = 1.007316f;
+    private float neutronMass = 1.008665f;
 
     [HideInInspector] public Rigidbody rb;
-    public float mass;
+    public float mass = 0;
     public Vector3 initialVelocity;
     // Start is called before the first frame update
     void Start()
     {
+        if(mass != 0)
+        {
+            switch (particleType)
+            {
+                case ParticleType.Proton:
+                    mass = magnitude * protonMass;
+                    break;
+                case ParticleType.Electron:
+                    mass = magnitude * electronMass;
+                    break;
+                case ParticleType.Neutron:
+                    mass = neutronMass;
+                    break;
+            }
+        }
         UpdateSurface();
         UpdateSize();
-        mass = charge > 0 ? charge * protonMass : -charge * electronMass;
         if (GetComponent<Rigidbody>() != null) rb = GetComponent<Rigidbody>();
         else rb = gameObject.AddComponent<Rigidbody>();
         rb.mass = mass;
