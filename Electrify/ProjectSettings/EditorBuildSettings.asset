@@ -5,13 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/Testing Scene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/NeverUnload.unity
+    guid: dc23f55e1a22a524e9afdc65f922fcf9
   - enabled: 1
     path: Assets/Scenes/Main Menu.unity
     guid: 54d32f65be8295c47ab67e7ae7096e8d
   - enabled: 1
     path: Assets/Scenes/Level 1.unity
     guid: 1782f2d4906a46748acef9112c27d085
+  - enabled: 0
+    path: Assets/Scenes/Testing Scene.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
   m_configObjects: {}

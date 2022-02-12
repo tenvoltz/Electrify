@@ -55,7 +55,6 @@ public class MenuButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     }
     public void OnPointerExit(PointerEventData eventData)
     {
-        //if (textBoxAnimation != null) LeanTween.cancel(textBoxAnimation.uniqueId);
         textBoxAnimation = LeanTween.value(gameObject, layoutElement.flexibleHeight, 1, 0.5f)
             .setOnUpdate((float val) =>
             {
