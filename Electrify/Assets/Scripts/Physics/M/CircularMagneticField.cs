@@ -7,11 +7,12 @@ public class CircularMagneticField : MagneticField
     public Vector3 direction = Vector3.zero;
     public override Vector3 GetDirection(Vector3 other)
     {
-        return Vector3.Cross(other - this.transform.position,direction);
+        return Vector3.Cross(direction, other - this.transform.position).normalized;
     }
     public override float GetStrength(Vector3 other)
     {
-        return strength / (2 * Mathf.PI * Vector3.Magnitude(GetDirection(other)));
+        float distance = Vector3.Cross(direction, other - this.transform.position).magnitude;
+        return strength / (2 * Mathf.PI * distance);
     }
 
     public override Color GetColor(Vector3 position)
