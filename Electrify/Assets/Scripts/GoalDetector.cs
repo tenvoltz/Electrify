@@ -16,7 +16,7 @@ public class GoalDetector : MonoBehaviour
         if(other.gameObject == targetObject)
         {
             Debug.Log("The Goal is good", this);
-            LevelManager.moveToLevel(nextLevelToLoad);
+            LevelManager.Instance.moveToNextLevel(nextLevelToLoad);     
         }
     }
 }

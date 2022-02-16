@@ -30,6 +30,7 @@ public class Tooltip : MonoBehaviour
     }
     public void FadeIn()
     {
+        canvasGroup.alpha = 0;
         LeanTween.value(gameObject, 0, 1, 1).setOnUpdate((float val) =>
         {
             canvasGroup.alpha = val;

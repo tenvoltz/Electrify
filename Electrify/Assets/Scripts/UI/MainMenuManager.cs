@@ -6,7 +6,16 @@ public class MainMenuManager : MonoBehaviour
 {
     [Header("Reference")]
     [SerializeField] private GameObject mainContainer;
-
+    [SerializeField] private List<GameObject> subContainers;
+    public void Start()
+    {
+        mainContainer.SetActive(true);
+        foreach(GameObject container in subContainers)
+        {
+            container.GetComponent<CanvasGroup>().alpha = 0;
+            container.SetActive(false);
+        }
+    }
     public void enableUI(GameObject UIContainer)
     {
         UIContainer.SetActive(true);
