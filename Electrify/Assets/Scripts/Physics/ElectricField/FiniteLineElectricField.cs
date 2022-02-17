@@ -25,11 +25,23 @@ public class FiniteLineElectricField: ElectricField
     {
         return GetField(other).magnitude;
     }
+    public Vector3 GetRodDirection()
+    {
+        return this.transform.TransformDirection(Vector3.right);
+    }
+    public float GetRodLength()
+    {
+        return this.transform.localScale[0];
+    }
+    public float GetLambda()
+    {
+        return lambda;
+    }
     
     public override Vector3 GetField(Vector3 other)
     {
-        float length = this.transform.localScale[0];
-        direction = this.transform.TransformDirection(Vector3.right);
+        float length = GetRodLength();
+        direction = GetRodDirection();
         Vector3 distance = other - this.transform.position;
         Vector3 a = Vector3.Dot(direction, distance) * direction.normalized;
         Vector3 h = distance - a;

@@ -30,7 +30,7 @@ public class MovingParticle : Particle
             }
         }
         UpdateSurface();
-        //UpdateSize();
+        UpdateSize();
         if (GetComponent<Rigidbody>() != null) rb = GetComponent<Rigidbody>();
         else rb = gameObject.AddComponent<Rigidbody>();
         rb.mass = mass;
@@ -41,7 +41,7 @@ public class MovingParticle : Particle
     void UpdateSize()
     {
         float radius = Mathf.Pow(mass, 0.3333f);
-        transform.localScale = transform.localScale * radius;
+        transform.localScale = new Vector3(1, 1, 1) * radius;
     }
 
     public void SetFreezingState(bool isFreeze)
