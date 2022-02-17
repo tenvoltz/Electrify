@@ -2,19 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum TimeState
+{
+    QuarterSpeed,
+    HalfSpeed,
+    Pause,
+    Resume,
+    TwiceSpeed,
+    QuadrupleSpeed
+}
 public class TimeManager : MonoBehaviour
 {
     public static bool isPaused = false;
-    public enum TimeState
-    {
-        QuarterSpeed,
-        HalfSpeed,
-        Pause,
-        Resume,
-        TwiceSpeed,
-        QuadrupleSpeed
-    }
-    public static void setTimeScale(TimeState timeState)
+    public static void SetTimeScale(TimeState timeState)
     {
         switch (timeState)
         {

@@ -7,16 +7,12 @@ public class GoalDetector : MonoBehaviour
 {
     [SerializeField] private GameObject targetObject;
     [SerializeField] private int nextLevelToLoad;
-    private void Start()
-    {
-        nextLevelToLoad = SceneManager.GetActiveScene().buildIndex + 1;
-    }
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject == targetObject)
         {
             Debug.Log("The Goal is good", this);
-            LevelManager.Instance.moveToNextLevel(nextLevelToLoad);     
+            LevelManager.Instance.moveToLevelByGoal(nextLevelToLoad);     
         }
     }
 }

@@ -61,7 +61,7 @@ public class LevelButton : MonoBehaviour, IPointerDownHandler, IPointerEnterHand
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        LevelManager.Instance.moveToNextLevel(level);
+        LevelManager.Instance.moveToLevelByMainMenu(level);
     }
     public void OnPointerDown(PointerEventData eventData)
     {
