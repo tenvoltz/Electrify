@@ -6,12 +6,11 @@ using UnityEngine;
 public class MovingRod : MonoBehaviour
 {
     [HideInInspector] public Rigidbody rb;
-    private Collider c;
+    public float lambda = 1;
     public float mass = 1;
     public Vector3 initialVelocity;
     public Vector3 orientation;
-    public float lambda = 1;
-    public float length = 1;
+    public float length;
 
     public Vector3 GetDirection()
     {

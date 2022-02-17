@@ -50,6 +50,29 @@ public class FiniteLineElectricField: ElectricField
         return field;
     }
 
+    public Vector3 GetField(Vector3 other, float lowBoundL, float upBoundL)
+    {
+        float length = upBoundL - lowBoundL;
+        direction = this.transform.TransformDirection(Vector3.right);
+        Vector3 newCenter = this.transform.position + (lowBoundL + length / 2) * direction;
+        Vector3 distance = other - newCenter;
+        Vector3 a = Vector3.Dot(direction, distance) * direction.normalized;
+        Vector3 h = distance - a;
+        float fieldXStrength = 0;
+        float fieldYStrength = 0;
+        System.Func<float, float> antiDerivativeX = l => k*lambda / Mathf.Sqrt(Mathf.Pow(h.magnitude, 2) + Mathf.Pow(l - a.magnitude, 2));
+        fieldXStrength = antiDerivativeX(length/2) - antiDerivativeX(-length / 2);
+        if (h.magnitude != 0)
+        {
+            System.Func<float, float> antiDerivativeY = l => (k*lambda)*((l - a.magnitude) / h.magnitude) / Mathf.Sqrt(Mathf.Pow(h.magnitude, 2) + Mathf.Pow(l - a.magnitude, 2));
+            fieldYStrength = antiDerivativeY(length / 2) - antiDerivativeY(-length / 2);
+        }
+        Vector3 fieldX = a.normalized * Mathf.Abs(fieldXStrength);
+        Vector3 fieldY = h.normalized * Mathf.Abs(fieldYStrength);
+        Vector3 field = fieldX + fieldY;
+        return field;
+    }
+
     public override Color GetColor(Vector3 position)
     {
         if (isInside(position)) return color * 50 * GetStrength(position);

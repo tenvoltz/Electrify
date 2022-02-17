@@ -21,17 +21,7 @@ public abstract class ElectricField : MonoBehaviour
         faList = new List<FieldArrow>();
         Render();
     }
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.CompareTag("Moving Particle"))
-        {
-            Rigidbody rb = other.attachedRigidbody;
-            Particle p = other.gameObject.GetComponent<MovingParticle>();
-            Vector3 electricField = GetStrength(other.transform.position) * GetDirection(other.transform.position);
-            Vector3 force = p.charge * electricField;
-            rb.AddForce(force);
-        }
-    }
+
     public virtual Vector3 GetDirection(Vector3 other)
     {
         return Vector3.one;
@@ -48,6 +38,17 @@ public abstract class ElectricField : MonoBehaviour
     {
         if (isInside(position)) return color;
         else return Color.clear;
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("Moving Particle"))
+        {
+            Rigidbody rb = other.attachedRigidbody;
+            Particle p = other.gameObject.GetComponent<MovingParticle>();
+            Vector3 electricField = GetStrength(other.transform.position) * GetDirection(other.transform.position);
+            Vector3 force = p.charge * electricField;
+            rb.AddForce(force);
+        }
     }
     public bool isInside(Vector3 position)
     {
