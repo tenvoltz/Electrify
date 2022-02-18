@@ -21,17 +21,6 @@ public abstract class MagneticField : MonoBehaviour
         faList = new List<FieldArrow>();
         Render();
     }
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.CompareTag("Moving Particle"))
-        {
-            Rigidbody rb = other.attachedRigidbody;
-            Particle p = other.gameObject.GetComponent <MovingParticle> ();
-            Vector3 forceDirection = Vector3.Cross(rb.velocity, GetDirection(other.transform.position));
-            Vector3 force = forceDirection * p.charge * GetStrength(other.transform.position);
-            rb.AddForce(force);
-        }
-    }
     public virtual Vector3 GetDirection(Vector3 other)
     {
         return Vector3.one;
@@ -39,6 +28,11 @@ public abstract class MagneticField : MonoBehaviour
     public virtual float GetStrength(Vector3 other)
     {
         return strength;
+    }
+
+    public virtual Vector3 GetField(Vector3 other)
+    {
+        return Vector3.one;
     }
     public virtual Color GetColor(Vector3 position)
     {

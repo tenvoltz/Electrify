@@ -9,10 +9,15 @@ public class UniformMagneticField :  MagneticField
     [Header("Space between Arrow")]
     [SerializeField] private float xSpace = 1f;
     [SerializeField] private float zSpace = 1f;
+
+    public override Vector3 GetField(Vector3 other)
+    {
+        return strength * this.transform.TransformDirection(Vector3.up);
+    }
     public override Vector3 GetDirection(Vector3 other)
     {
-        return direction;
-    }
+        return this.transform.TransformDirection(Vector3.up);
+    } 
     public override float GetStrength(Vector3 other)
     {
         return strength;
