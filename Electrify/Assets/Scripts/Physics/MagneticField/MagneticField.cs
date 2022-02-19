@@ -6,7 +6,6 @@ using UnityEngine;
 public abstract class MagneticField : MonoBehaviour
 {
     public GameObject arrowPrefab;
-    public float strength = 1;
     public Color color = Color.white;
 
     [HideInInspector] public List<FieldArrow> faList;
@@ -27,7 +26,7 @@ public abstract class MagneticField : MonoBehaviour
     }
     public virtual float GetStrength(Vector3 other)
     {
-        return strength;
+        return 0;
     }
 
     public virtual Vector3 GetField(Vector3 other)

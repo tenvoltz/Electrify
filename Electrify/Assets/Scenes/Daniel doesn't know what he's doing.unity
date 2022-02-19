@@ -228,13 +228,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60b438e301d648c4d93985c8f3395d56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowPrefab: {fileID: 0}
-  strength: 1
-  color: {r: 1, g: 1, b: 1, a: 1}
-  faList: []
-  k: 1
-  lambda: 1
+  position: {x: 0, y: 0, z: 0}
+  charge: 1
   direction: {x: 0, y: 0, z: 0}
+  length: 0
+  <color>k__BackingField:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
 --- !u!65 &77990184
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -425,13 +427,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60b438e301d648c4d93985c8f3395d56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowPrefab: {fileID: 0}
-  strength: 1
-  color: {r: 1, g: 1, b: 1, a: 1}
-  faList: []
-  k: 1
-  lambda: 1
+  position: {x: 0, y: 0, z: 0}
+  charge: 1
   direction: {x: 0, y: 0, z: 0}
+  length: 0
+  <color>k__BackingField:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
 --- !u!65 &163447539
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -551,7 +555,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db0905f30dd596c4ea38c288428dc3f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  couloumbConstant: 541
   rodSubdivisions: 100
   FaradayContainer: {fileID: 1629568905}
 --- !u!1 &977634292
@@ -763,13 +766,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60b438e301d648c4d93985c8f3395d56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowPrefab: {fileID: 0}
-  strength: 1
-  color: {r: 1, g: 1, b: 1, a: 1}
-  faList: []
-  k: 1
-  lambda: 1
+  position: {x: 0, y: 0, z: 0}
+  charge: 1
   direction: {x: 0, y: 0, z: 0}
+  length: 0
+  <color>k__BackingField:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
 --- !u!65 &1221524540
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -863,11 +868,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f63893d42d66014f94ffc97bda1a994, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowPrefab: {fileID: 0}
-  strength: 1
-  color: {r: 1, g: 1, b: 1, a: 1}
-  faList: []
-  k: 1
   charge: 1
 --- !u!1 &1549567782 stripped
 GameObject:
@@ -886,11 +886,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f63893d42d66014f94ffc97bda1a994, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowPrefab: {fileID: 0}
-  strength: 1
-  color: {r: 1, g: 1, b: 1, a: 1}
-  faList: []
-  k: 1
   charge: 1
 --- !u!1 &1621502426
 GameObject:
@@ -990,7 +985,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1629568906
 Transform:
   m_ObjectHideFlags: 0
@@ -1060,13 +1055,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60b438e301d648c4d93985c8f3395d56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowPrefab: {fileID: 0}
-  strength: 1
-  color: {r: 1, g: 1, b: 1, a: 1}
-  faList: []
-  k: 1
-  lambda: 1
+  position: {x: 0, y: 0, z: 0}
+  charge: 1
   direction: {x: 0, y: 0, z: 0}
+  length: 0
+  <color>k__BackingField:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
 --- !u!65 &1715403946
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1196,13 +1193,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60b438e301d648c4d93985c8f3395d56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowPrefab: {fileID: 0}
-  strength: 1
-  color: {r: 1, g: 1, b: 1, a: 1}
-  faList: []
-  k: 1
-  lambda: 1
+  position: {x: 0, y: 0, z: 0}
+  charge: 1
   direction: {x: 0, y: 0, z: 0}
+  length: 0
+  <color>k__BackingField:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
 --- !u!65 &1837749839
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1332,13 +1331,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60b438e301d648c4d93985c8f3395d56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowPrefab: {fileID: 0}
-  strength: 1
-  color: {r: 1, g: 1, b: 1, a: 1}
-  faList: []
-  k: 1
-  lambda: 1
+  position: {x: 0, y: 0, z: 0}
+  charge: 1
   direction: {x: 0, y: 0, z: 0}
+  length: 0
+  <color>k__BackingField:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
 --- !u!65 &1870757459
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1468,13 +1469,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60b438e301d648c4d93985c8f3395d56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowPrefab: {fileID: 0}
-  strength: 1
-  color: {r: 1, g: 1, b: 1, a: 1}
-  faList: []
-  k: 1
-  lambda: 1
+  position: {x: 0, y: 0, z: 0}
+  charge: 1
   direction: {x: 0, y: 0, z: 0}
+  length: 0
+  <color>k__BackingField:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
 --- !u!65 &2030270729
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1699,13 +1702,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60b438e301d648c4d93985c8f3395d56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowPrefab: {fileID: 0}
-  strength: 1
-  color: {r: 1, g: 1, b: 1, a: 1}
-  faList: []
-  k: 1
-  lambda: 1
+  position: {x: 0, y: 0, z: 0}
+  charge: 1
   direction: {x: 0, y: 0, z: 0}
+  length: 0
+  <color>k__BackingField:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
 --- !u!65 &2145062067
 BoxCollider:
   m_ObjectHideFlags: 0

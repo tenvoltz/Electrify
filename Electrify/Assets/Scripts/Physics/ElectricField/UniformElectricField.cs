@@ -4,45 +4,18 @@ using UnityEngine;
 
 public class UniformElectricField : ElectricField
 {
-    public Vector3 direction = Vector3.zero;
-
-    [Header("Space between Arrow")]
-    [SerializeField] private float xSpace = 1f;
-    [SerializeField] private float zSpace = 1f;
-    public override Vector3 GetDirection(Vector3 other)
-    {
-        return direction;
-    }
-    public override float GetStrength(Vector3 other)
-    {
-        return strength;
-    }
+    public Vector3 direction;
+    public float magnitude;
     public override Vector3 GetField(Vector3 other)
     {
-        return GetStrength(other) * GetDirection(other);
+        return magnitude * direction;
     }
-    public override Color GetColor(Vector3 position)
+    public override Vector3 GetExposedFieldFromFaraday(Vector3 other, List<GameObject> faradayObjects)
     {
-        if (isInside(position)) return color;
-        else return Color.clear;
-    }
-    public override void Render()
-    {
-        BoxCollider bc = GetComponent<BoxCollider>();
-        int xAmount = (int)(bc.size.x / xSpace);
-        int zAmount = (int)(bc.size.z / zSpace);
-        for (int zIndex = 0; zIndex < zAmount; zIndex++)
+        if (IntersectFaradayCage(other, -direction, float.MaxValue, faradayObjects))
         {
-            for (int xIndex = 0; xIndex < xAmount; xIndex++)
-            {
-                GameObject arrow = Instantiate(arrowPrefab, transform);
-                Vector3 position = new Vector3(-bc.size.x * 0.5f, 0, -bc.size.z * 0.5f);
-                position += Vector3.right * xSpace * (xIndex + 0.5f) + Vector3.forward * zSpace * (zIndex + 0.5f);
-                arrow.transform.localPosition = position;
-                FieldArrow fa = arrow.GetComponent<FieldArrow>();
-                fa.direction = direction;
-                faList.Add(fa);
-            }
+            return Vector3.zero;
         }
+        else return GetField(other);
     }
 }

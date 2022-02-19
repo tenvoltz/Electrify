@@ -5,6 +5,7 @@ using UnityEngine;
 public class UniformMagneticField :  MagneticField
 {
     public Vector3 direction = Vector3.zero;
+    public int strength = 1;
 
     [Header("Space between Arrow")]
     [SerializeField] private float xSpace = 1f;

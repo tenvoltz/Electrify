@@ -9,7 +9,7 @@ public class FiniteWireMagneticField : MagneticField
     public Vector3 direction = Vector3.zero;
     public Vector3 GetField(Vector3 other, int subdivisions)
     {
-        Vector3 distance = other - this.transform.position;
+        Vector3 distance = other - this.transform.position; 
         Vector3 distanceAlongWire = Vector3.Project(distance, GetWireDirection());
         if (distanceAlongWire.magnitude < GetWireLength() / 2)
         {

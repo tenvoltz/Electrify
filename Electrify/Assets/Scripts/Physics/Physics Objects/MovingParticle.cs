@@ -9,7 +9,7 @@ public class MovingParticle : Particle
     private float neutronMass = 1.008665f;
 
     [HideInInspector] public Rigidbody rb;
-    public float mass = 0;
+    public float mass = 1;
     public Vector3 initialVelocity;
     // Start is called before the first frame update
     void Start()
@@ -30,7 +30,7 @@ public class MovingParticle : Particle
             }
         }
         UpdateSurface();
-        UpdateSize();
+        //UpdateSize();
         if (GetComponent<Rigidbody>() != null) rb = GetComponent<Rigidbody>();
         else rb = gameObject.AddComponent<Rigidbody>();
         rb.mass = mass;

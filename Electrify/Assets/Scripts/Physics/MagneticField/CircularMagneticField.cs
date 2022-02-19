@@ -5,6 +5,7 @@ using UnityEngine;
 public class CircularMagneticField : MagneticField
 {
     public Vector3 direction = Vector3.zero;
+    public int strength = 1;
     public override Vector3 GetDirection(Vector3 other)
     {
         return Vector3.Cross(direction, other - this.transform.position).normalized;

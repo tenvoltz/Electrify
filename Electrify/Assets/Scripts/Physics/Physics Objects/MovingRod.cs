@@ -6,6 +6,7 @@ using UnityEngine;
 public class MovingRod : MonoBehaviour
 {
     [HideInInspector] public Rigidbody rb;
+    [HideInInspector] public FiniteLineElectricField electricRod;
     public float lambda = 1;
     public float mass = 1;
     public Vector3 initialVelocity;
@@ -30,6 +31,7 @@ public class MovingRod : MonoBehaviour
     {
         if (GetComponent<Rigidbody>() != null) rb = GetComponent<Rigidbody>();
         else rb = gameObject.AddComponent<Rigidbody>();
+        if (GetComponent<FiniteLineElectricField>() != null) electricRod = GetComponent<FiniteLineElectricField>();
         rb.mass = mass;
         rb.velocity = initialVelocity;
         rb.useGravity = false;
@@ -40,7 +42,6 @@ public class MovingRod : MonoBehaviour
 
     private void OnValidate()
     {
-        rb.centerOfMass = fromCenter * GetLength() / 2 * Vector3.right;
+        if (rb != null)  rb.centerOfMass = fromCenter * GetLength() / 2 * Vector3.right;
     }
-
 }
