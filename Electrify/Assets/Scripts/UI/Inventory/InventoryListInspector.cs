@@ -40,18 +40,35 @@ public class InventoryListInspector : Editor
         for (int i = 0; i < ThisList.arraySize; i++)
         {
             SerializedProperty MyListRef = ThisList.GetArrayElementAtIndex(i);
-            SerializedProperty MyObjectType = MyListRef.FindPropertyRelative("itemType");
+            SerializedProperty MyItemType = MyListRef.FindPropertyRelative("itemType");
+            SerializedProperty MySize = MyListRef.FindPropertyRelative("size");
+            SerializedProperty MyChargeableObject = MyListRef.FindPropertyRelative("chargeableObject");
             SerializedProperty MyParticleType = MyListRef.FindPropertyRelative("particleType");
             SerializedProperty MyMagnitude = MyListRef.FindPropertyRelative("magnitude");
-            SerializedProperty MyMovable = MyListRef.FindPropertyRelative("movable");
+            SerializedProperty MyMovableObject = MyListRef.FindPropertyRelative("movableObject");
             SerializedProperty MyMass = MyListRef.FindPropertyRelative("mass");
+            SerializedProperty MyPivotableObject = MyListRef.FindPropertyRelative("pivotableObject");
+            SerializedProperty MyPivotFromCenterAt = MyListRef.FindPropertyRelative("pivotFromCenterAt");
 
-            EditorGUILayout.PropertyField(MyObjectType);
-            EditorGUILayout.PropertyField(MyMovable);
-            EditorGUILayout.PropertyField(MyParticleType);
-            EditorGUILayout.PropertyField(MyMagnitude);
-            if(MyMovable.boolValue) EditorGUILayout.PropertyField(MyMass);
-
+            EditorGUILayout.PropertyField(MyItemType);
+            EditorGUILayout.PropertyField(MySize);
+            EditorGUILayout.PropertyField(MyChargeableObject);
+            if (MyChargeableObject.boolValue)
+            {
+                EditorGUILayout.PropertyField(MyParticleType);
+                EditorGUILayout.PropertyField(MyMagnitude);
+            }
+            EditorGUILayout.PropertyField(MyMovableObject);
+            if (MyMovableObject.boolValue || MyPivotableObject.boolValue)
+            {
+                EditorGUILayout.PropertyField(MyMass);
+            }
+            EditorGUILayout.PropertyField(MyPivotableObject);
+            if (MyPivotableObject.boolValue)
+            {
+                MyMovableObject.boolValue = true;
+                EditorGUILayout.PropertyField(MyPivotFromCenterAt);
+            }
             EditorGUILayout.Space();
 
             //Remove this index from the List

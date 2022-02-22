@@ -7,7 +7,6 @@ using UnityEngine;
 public class PlaneElectricField : ElectricField
 {
     private MeshCollider c;
-    public float magnitude;
     public override Vector3 GetField(Vector3 other)
     {
         Vector3 direction = GetPlaneNormal();
@@ -15,7 +14,7 @@ public class PlaneElectricField : ElectricField
         Ray ray = new Ray(other, -1 * direction);
         RaycastHit hit;
         if (c.Raycast(ray, out hit, distance))
-            return magnitude * direction;
+            return chargeable.charge * direction;
         return Vector3.zero;
     }
     public override Vector3 GetExposedFieldFromFaraday(Vector3 other, List<GameObject> faradayObjects)

@@ -209,6 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
+  electricRod: {fileID: 0}
   lambda: 1
   mass: 1
   initialVelocity: {x: 0, y: 0, z: 0}
@@ -228,15 +229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60b438e301d648c4d93985c8f3395d56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  position: {x: 0, y: 0, z: 0}
   charge: 1
-  direction: {x: 0, y: 0, z: 0}
-  length: 0
-  <color>k__BackingField:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
 --- !u!65 &77990184
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -374,6 +367,51 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3d0a76792470594ba8657a772264814, type: 3}
+--- !u!1 &153517895
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 153517897}
+  - component: {fileID: 153517896}
+  m_Layer: 0
+  m_Name: Uniform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &153517896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 153517895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca495c05b79cab40b5ba534ac702c4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: {x: 0, y: 1, z: 0}
+  magnitude: 10
+--- !u!4 &153517897
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 153517895}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 8.057368, y: 14.66, z: 11.914324}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &163447536
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,6 +446,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
+  electricRod: {fileID: 0}
   lambda: 1
   mass: 1
   initialVelocity: {x: 0, y: 0, z: 0}
@@ -427,15 +466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60b438e301d648c4d93985c8f3395d56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  position: {x: 0, y: 0, z: 0}
   charge: 1
-  direction: {x: 0, y: 0, z: 0}
-  length: 0
-  <color>k__BackingField:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
 --- !u!65 &163447539
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -512,6 +543,71 @@ Transform:
   m_Father: {fileID: 61191788}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &311288664
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6296951427110590769, guid: d3d0a76792470594ba8657a772264814, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6296951427110590774, guid: d3d0a76792470594ba8657a772264814, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6296951427110590774, guid: d3d0a76792470594ba8657a772264814, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7.3368664
+      objectReference: {fileID: 0}
+    - target: {fileID: 6296951427110590774, guid: d3d0a76792470594ba8657a772264814, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 6296951427110590774, guid: d3d0a76792470594ba8657a772264814, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 6296951427110590774, guid: d3d0a76792470594ba8657a772264814, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6296951427110590774, guid: d3d0a76792470594ba8657a772264814, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6296951427110590774, guid: d3d0a76792470594ba8657a772264814, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6296951427110590774, guid: d3d0a76792470594ba8657a772264814, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6296951427110590774, guid: d3d0a76792470594ba8657a772264814, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6296951427110590774, guid: d3d0a76792470594ba8657a772264814, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6296951427110590774, guid: d3d0a76792470594ba8657a772264814, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6296951427110590778, guid: d3d0a76792470594ba8657a772264814, type: 3}
+      propertyPath: m_Name
+      value: Moving Particle (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6296951427110590778, guid: d3d0a76792470594ba8657a772264814, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d3d0a76792470594ba8657a772264814, type: 3}
 --- !u!1 &814800171
 GameObject:
   m_ObjectHideFlags: 0
@@ -537,7 +633,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 814800171}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 7.51, y: 7.84, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -555,7 +651,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db0905f30dd596c4ea38c288428dc3f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rodSubdivisions: 100
+  _coulombConstant: 1
+  _rodSubdivisions: 10
   FaradayContainer: {fileID: 1629568905}
 --- !u!1 &977634292
 GameObject:
@@ -584,7 +681,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 977634292}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 12.94, y: 0, z: 0}
+  m_LocalPosition: {x: 21.15, y: 0, z: 0}
   m_LocalScale: {x: 18.6717, y: 0.1, z: 15.026499}
   m_Children: []
   m_Father: {fileID: 1629568906}
@@ -747,6 +844,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
+  electricRod: {fileID: 0}
   lambda: 1
   mass: 1
   initialVelocity: {x: 0, y: 0, z: 0}
@@ -766,15 +864,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60b438e301d648c4d93985c8f3395d56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  position: {x: 0, y: 0, z: 0}
   charge: 1
-  direction: {x: 0, y: 0, z: 0}
-  length: 0
-  <color>k__BackingField:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
 --- !u!65 &1221524540
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -985,7 +1075,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1629568906
 Transform:
   m_ObjectHideFlags: 0
@@ -1022,7 +1112,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1715403944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1036,6 +1126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
+  electricRod: {fileID: 0}
   lambda: 1
   mass: 1
   initialVelocity: {x: 0, y: 0, z: 0}
@@ -1055,15 +1146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60b438e301d648c4d93985c8f3395d56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  position: {x: 0, y: 0, z: 0}
-  charge: 1
-  direction: {x: 0, y: 0, z: 0}
-  length: 0
-  <color>k__BackingField:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
+  charge: 10
 --- !u!65 &1715403946
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1134,12 +1217,30 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1715403943}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalPosition: {x: 5.34, y: 0.71, z: 0}
   m_LocalScale: {x: 10, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1805353653 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6296951427110590778, guid: d3d0a76792470594ba8657a772264814, type: 3}
+  m_PrefabInstance: {fileID: 311288664}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1805353654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805353653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f63893d42d66014f94ffc97bda1a994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charge: 1
 --- !u!1 &1837749836
 GameObject:
   m_ObjectHideFlags: 0
@@ -1174,6 +1275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
+  electricRod: {fileID: 0}
   lambda: 1
   mass: 1
   initialVelocity: {x: 0, y: 0, z: 0}
@@ -1193,15 +1295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60b438e301d648c4d93985c8f3395d56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  position: {x: 0, y: 0, z: 0}
   charge: 1
-  direction: {x: 0, y: 0, z: 0}
-  length: 0
-  <color>k__BackingField:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
 --- !u!65 &1837749839
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1312,6 +1406,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
+  electricRod: {fileID: 0}
   lambda: 1
   mass: 1
   initialVelocity: {x: 0, y: 0, z: 0}
@@ -1331,15 +1426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60b438e301d648c4d93985c8f3395d56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  position: {x: 0, y: 0, z: 0}
-  charge: 1
-  direction: {x: 0, y: 0, z: 0}
-  length: 0
-  <color>k__BackingField:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
+  charge: 10
 --- !u!65 &1870757459
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1410,7 +1497,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1870757456}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2, z: 0}
+  m_LocalPosition: {x: 5.03, y: -2, z: 0}
   m_LocalScale: {x: 10, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1450,6 +1537,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
+  electricRod: {fileID: 0}
   lambda: 1
   mass: 1
   initialVelocity: {x: 0, y: 0, z: 0}
@@ -1469,15 +1557,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60b438e301d648c4d93985c8f3395d56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  position: {x: 0, y: 0, z: 0}
   charge: 1
-  direction: {x: 0, y: 0, z: 0}
-  length: 0
-  <color>k__BackingField:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
 --- !u!65 &2030270729
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1581,7 +1661,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2077384468}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.5, y: 0, z: 0}
+  m_LocalPosition: {x: -10.74, y: 0, z: 0}
   m_LocalScale: {x: 21.78849, y: 0.1, z: 14.915687}
   m_Children: []
   m_Father: {fileID: 1629568906}
@@ -1683,6 +1763,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
+  electricRod: {fileID: 0}
   lambda: 1
   mass: 1
   initialVelocity: {x: 0, y: 0, z: 0}
@@ -1702,15 +1783,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60b438e301d648c4d93985c8f3395d56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  position: {x: 0, y: 0, z: 0}
   charge: 1
-  direction: {x: 0, y: 0, z: 0}
-  length: 0
-  <color>k__BackingField:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
 --- !u!65 &2145062067
 BoxCollider:
   m_ObjectHideFlags: 0

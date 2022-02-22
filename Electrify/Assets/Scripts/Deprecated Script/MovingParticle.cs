@@ -14,7 +14,7 @@ public class MovingParticle : Particle
     // Start is called before the first frame update
     void Start()
     {
-        if(mass != 0)
+        if(mass == 0)
         {
             switch (particleType)
             {

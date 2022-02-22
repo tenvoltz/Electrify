@@ -1,18 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class InventorySlotButton : MonoBehaviour
+public class InventorySlotButton : MonoBehaviour, IPointerClickHandler
 {
-    // Start is called before the first frame update
-    void Start()
+    [HideInInspector] public InventoryListObject itemProperty;
+    [HideInInspector] public GameObject item;
+    public void OnPointerClick(PointerEventData eventData)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Debug.Log(this);
     }
 }

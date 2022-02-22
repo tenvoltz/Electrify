@@ -14,10 +14,9 @@ public class FiniteLineElectricField: ElectricField
      *                              0
      *      
      * */
-    public float charge = 1;
     public override Vector3 GetField(Vector3 other)
     {
-        return GetField(other, this.transform.position, GetRodDirection(), GetRodLength(), charge);
+        return GetField(other, this.transform.position, physicsObject.GetDirection(), physicsObject.GetLength(), chargeable.charge);
     }
     public override Vector3 GetExposedFieldFromFaraday(Vector3 other, List<GameObject> faradayObjects)
     {
@@ -93,20 +92,12 @@ public class FiniteLineElectricField: ElectricField
     {
         for (int n = 0; n < PhysicsEMManager.rodSubdivisions; n++)
         {
-            float segmentLength = GetRodLength() / PhysicsEMManager.rodSubdivisions;
-            float segmentCharge = charge * segmentLength / GetRodLength();
-            Vector3 segmentPosition = this.transform.position + ((n + 0.5f) * segmentLength - GetRodLength() / 2) * GetRodDirection();
-            Vector3 segmentDirection = GetRodDirection();
+            float segmentLength = physicsObject.GetLength() / PhysicsEMManager.rodSubdivisions;
+            float segmentCharge = chargeable.charge * segmentLength / physicsObject.GetLength();
+            Vector3 segmentPosition = this.transform.position + ((n + 0.5f) * segmentLength - physicsObject.GetLength() / 2) * physicsObject.GetDirection();
+            Vector3 segmentDirection = physicsObject.GetDirection();
             yield return new Segment(segmentPosition, segmentDirection, segmentLength, segmentCharge);
         }
-    }
-    public Vector3 GetRodDirection()
-    {
-        return this.transform.TransformDirection(Vector3.right);
-    }
-    public float GetRodLength()
-    {
-        return this.transform.localScale[0];
     }
     public struct Segment
     {

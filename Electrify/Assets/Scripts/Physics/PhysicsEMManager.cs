@@ -6,7 +6,8 @@ public class PhysicsEMManager : MonoBehaviour
 {
     public static float couloumbConstant = 1;
     public static int rodSubdivisions = 10;
-    public float _coulombConstant = 1; //cannot access static variable directly
+    //cannot access static variable directly, so this is created
+    public float _coulombConstant = 1; 
     public int _rodSubdivisions = 10;
     private void OnValidate()
     {
@@ -20,29 +21,25 @@ public class PhysicsEMManager : MonoBehaviour
 
     private List<MovingParticle> movingParticleList;
     private List<MovingRod> movingRodList;
+
+    private List<Movable> movableObjects;
     //ElectricField point, rod, plane, uniform, 
-    //Magnetic field point, plane, uniform, wire
     private List<ElectricField> electricFieldList;
-    //private List<PointChargeElectricField> electricParticleList;
-    //private List<FiniteLineElectricField> electricRodList;
-    //private List<PlaneElectricField> electricPlaneList;
-    //private List<UniformElectricField> electricUniformList;
 
     //private List<PointChargeMagneticField> magneticParticleList;
     //private List<UniformMagneticField> magneticPlaneList;
     //private List<UniformMagneticField> magneticUniformList;
+    //Magnetic field point, plane, uniform, wire
     private List<MagneticField> magneticFieldList;
     private List<GameObject> faradayList;
     void Start()
     {
-        movingParticleList = new List<MovingParticle>(FindObjectsOfType<MovingParticle>());
-        movingRodList = new List<MovingRod>(FindObjectsOfType<MovingRod>());
-        magneticFieldList = new List<MagneticField>(FindObjectsOfType<MagneticField>());
-        //electricParticleList = new List<PointChargeElectricField>(FindObjectsOfType<PointChargeElectricField>());
-        ////electricRodList = new List<FiniteLineElectricField>(FindObjectsOfType<FiniteLineElectricField>());
-        //electricPlaneList = new List<PlaneElectricField>(FindObjectsOfType<PlaneElectricField>());
-        //electricUniformList = new List<UniformElectricField>(FindObjectsOfType<UniformElectricField>());
+        //movingParticleList = new List<MovingParticle>(FindObjectsOfType<MovingParticle>());
+        //movingRodList = new List<MovingRod>(FindObjectsOfType<MovingRod>());
+
+        movableObjects = new List<Movable>(FindObjectsOfType<Movable>());
         electricFieldList = new List<ElectricField>(FindObjectsOfType<ElectricField>());
+        magneticFieldList = new List<MagneticField>(FindObjectsOfType<MagneticField>());
 
         faradayList = new List<GameObject>();
         if (FaradayContainer != null)
@@ -53,6 +50,7 @@ public class PhysicsEMManager : MonoBehaviour
                 faradayList.Add(faradayObjects.GetChild(i).gameObject);
             }
         }
+        /*
         foreach (MovingParticle mp in movingParticleList)
         {
             StartCoroutine(Cycle(mp));
@@ -60,8 +58,61 @@ public class PhysicsEMManager : MonoBehaviour
         foreach(MovingRod mr in movingRodList)
         {
             StartCoroutine(Cycle(mr));
+        }*/
+
+        foreach(Movable movable in movableObjects)
+        {
+            StartCoroutine(Cycle(movable));
         }
     }
+
+    public IEnumerator Cycle(Movable movable)
+    {
+        bool first = true;
+        while (true)
+        {
+            if (first)
+            {
+                first = false;
+                yield return new WaitForSeconds(Random.Range(0, timeInterval));
+            }
+            ApplyElectricForce(movable);
+            //ApplyMagneticForce(movable);
+            yield return new WaitForSeconds(timeInterval);
+        }
+    }
+
+    private void ApplyElectricForce(Movable movable)
+    {
+        if(movable.physicsObject.electricField is FiniteLineElectricField)
+        {
+            FiniteLineElectricField electricField1 = (FiniteLineElectricField)movable.physicsObject.electricField;
+            foreach (FiniteLineElectricField.Segment segment in electricField1.GetSegments())
+            {
+                Vector3 combinedElectricField = Vector3.zero;
+                foreach (ElectricField electricField2 in electricFieldList)
+                {
+                    if (electricField2.gameObject == movable.gameObject) continue;
+                    if (faradayList.Count == 0) combinedElectricField += electricField2.GetField(segment.position);
+                    else combinedElectricField += electricField2.GetExposedFieldFromFaraday(segment.position, faradayList);
+                }
+                movable.rb.AddForceAtPosition(segment.charge * combinedElectricField, segment.position);
+            }
+        }
+        else
+        {
+            Vector3 combinedElectricField = Vector3.zero;
+            foreach (ElectricField electricField in electricFieldList)
+            {
+                if (electricField.gameObject == movable.gameObject) continue;
+                if (faradayList.Count == 0) combinedElectricField += electricField.GetField(movable.transform.position);
+                else combinedElectricField += electricField.GetExposedFieldFromFaraday(movable.transform.position, faradayList);
+            }
+            movable.rb.AddForce(movable.physicsObject.chargeable.charge * combinedElectricField);
+        }
+    }
+
+    /*
     public IEnumerator Cycle(MovingParticle mp)
     {
         bool first = true;
@@ -128,4 +179,5 @@ public class PhysicsEMManager : MonoBehaviour
             mp.rb.AddForce(force);
         }
     }
+    */
 }

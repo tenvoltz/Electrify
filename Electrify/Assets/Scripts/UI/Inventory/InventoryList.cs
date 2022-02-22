@@ -6,14 +6,18 @@ using System.Collections.Generic;
 public class InventoryListObject
 {
     public ItemType itemType;
-    public Particle.ParticleType particleType;
-    public bool movable;
+    public Vector3 size;
+    public bool chargeableObject;
+    public ParticleType particleType;
     public float magnitude;
+    public bool movableObject;
     public float mass;
+    public bool pivotableObject;
+    public float pivotFromCenterAt;
 }
 public enum ItemType
 {
-    Particle = 1,
+    Sphere = 1,
     Rod = 2,
 }
 //Thanks ForceX for the code
