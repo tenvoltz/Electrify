@@ -128,3 +128,4 @@ MonoBehaviour:
   pivotable: {fileID: 0}
   electricField: {fileID: 0}
   UI: {fileID: 0}
+  itemType: 2

@@ -22,7 +22,7 @@ public class PhysicsEMManager : MonoBehaviour
     private List<MovingParticle> movingParticleList;
     private List<MovingRod> movingRodList;
 
-    private List<Movable> movableObjects;
+    private List<Movable> movableObjectsList;
     //ElectricField point, rod, plane, uniform, 
     private List<ElectricField> electricFieldList;
 
@@ -34,10 +34,7 @@ public class PhysicsEMManager : MonoBehaviour
     private List<GameObject> faradayList;
     void Start()
     {
-        //movingParticleList = new List<MovingParticle>(FindObjectsOfType<MovingParticle>());
-        //movingRodList = new List<MovingRod>(FindObjectsOfType<MovingRod>());
-
-        movableObjects = new List<Movable>(FindObjectsOfType<Movable>());
+        movableObjectsList = new List<Movable>(FindObjectsOfType<Movable>());
         electricFieldList = new List<ElectricField>(FindObjectsOfType<ElectricField>());
         magneticFieldList = new List<MagneticField>(FindObjectsOfType<MagneticField>());
 
@@ -50,17 +47,8 @@ public class PhysicsEMManager : MonoBehaviour
                 faradayList.Add(faradayObjects.GetChild(i).gameObject);
             }
         }
-        /*
-        foreach (MovingParticle mp in movingParticleList)
-        {
-            StartCoroutine(Cycle(mp));
-        }
-        foreach(MovingRod mr in movingRodList)
-        {
-            StartCoroutine(Cycle(mr));
-        }*/
 
-        foreach(Movable movable in movableObjects)
+        foreach(Movable movable in movableObjectsList)
         {
             StartCoroutine(Cycle(movable));
         }
@@ -112,72 +100,28 @@ public class PhysicsEMManager : MonoBehaviour
         }
     }
 
-    /*
-    public IEnumerator Cycle(MovingParticle mp)
+    public void AddPhysicsObject(GameObject gameObject)
     {
-        bool first = true;
-        while (true)
+        PhysicsObject physicsObject = gameObject.GetComponent<PhysicsObject>();
+        if (physicsObject == null) return;
+        if(physicsObject.electricField != null) electricFieldList.Add(physicsObject.electricField);
+        if (physicsObject.movable != null)
         {
-            if (first)
-            {
-                first = false;
-                yield return new WaitForSeconds(Random.Range(0, timeInterval));
-            }
-            ApplyElectricForce(mp);
-            ApplyMagneticForce(mp);
-            yield return new WaitForSeconds(timeInterval);
-        }
-    }
-    public IEnumerator Cycle(MovingRod mr)
-    {
-        bool first = true;
-        while (true)
-        {
-            if (first)
-            {
-                first = false;
-                yield return new WaitForSeconds(Random.Range(0, timeInterval));
-            }
-            ApplyElectricForce(mr);
-            //ApplyMagneticForce(mp);
-            yield return new WaitForSeconds(timeInterval);
-        }
-    }
-    private void ApplyElectricForce(MovingParticle mp)
-    {
-        Vector3 combinedElectricField = Vector3.zero;
-        foreach(ElectricField electricField in electricFieldList)
-        {
-            if (electricField.gameObject == mp.gameObject) continue;
-            if (faradayList.Count == 0) combinedElectricField += electricField.GetField(mp.transform.position);
-            else combinedElectricField += electricField.GetExposedFieldFromFaraday(mp.transform.position, faradayList);
-        }
-        mp.rb.AddForce(mp.charge * combinedElectricField);
-    }
-    private void ApplyElectricForce(MovingRod mr)
-    {
-        foreach (FiniteLineElectricField.Segment segment in mr.electricRod.GetSegments())
-        {
-            Vector3 combinedElectricField = Vector3.zero;
-            foreach (ElectricField electricField in electricFieldList)
-            {
-                if (electricField.gameObject == mr.gameObject) continue;
-                if (faradayList.Count == 0) combinedElectricField += electricField.GetField(segment.position);
-                else combinedElectricField += electricField.GetExposedFieldFromFaraday(segment.position, faradayList);
-            }
-            mr.rb.AddForceAtPosition(segment.charge * combinedElectricField, segment.position);
+            movableObjectsList.Add(physicsObject.movable);
+            StartCoroutine(Cycle(physicsObject.movable));
         }
     }
 
-    private void ApplyMagneticForce(MovingParticle mp)
+    public void DestroyPhysicsObject(GameObject gameObject)
     {
-        Vector3 force = Vector3.zero;
-        foreach (MagneticField field in magneticFieldList)
+        PhysicsObject physicsObject = gameObject.GetComponent<PhysicsObject>();
+        if (physicsObject == null) return;
+        if (physicsObject.electricField != null) electricFieldList.Remove(physicsObject.electricField);
+        if (physicsObject.movable != null)
         {
-            Vector3 fieldVector = field.GetStrength(mp.transform.position) * field.GetDirection(mp.transform.position);
-            force = mp.charge * Vector3.Cross(mp.rb.velocity, fieldVector);
-            mp.rb.AddForce(force);
+            movableObjectsList.Remove(physicsObject.movable);
+            StopCoroutine(Cycle(physicsObject.movable));
         }
+        Destroy(gameObject);
     }
-    */
 }

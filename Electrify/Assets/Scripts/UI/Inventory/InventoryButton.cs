@@ -18,10 +18,13 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler, IPointerEnte
     public Color DefaultColor;
     public Color InEffectColor;
     private static LTDescr inventoryAnimation;
+    private Vector2 initialRectPosition;
     private void Awake()
     {
         buttonRectTranform = GetComponent<RectTransform>();
         image = GetComponent<Image>();
+        initialRectPosition = inventoryRectTransform.anchoredPosition;
+        isPressed = true;
         SetDefaultColor();
     }
     public void OnPointerDown(PointerEventData eventData)
@@ -53,15 +56,13 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler, IPointerEnte
         }
     }
 
-    private void moveInventoryDown()
+    public void moveInventoryDown()
     {
-        float finalYPosition = inventoryRectTransform.anchoredPosition.y - buttonRectTranform.rect.height - inventoryRectTransform.rect.height;
+        float finalYPosition = initialRectPosition.y - buttonRectTranform.rect.height - inventoryRectTransform.rect.height;
         inventoryAnimation = LeanTween.moveY(inventoryRectTransform, finalYPosition, 0.5f).setEaseOutQuart().setIgnoreTimeScale(true);
-
     }
-    private void moveInventoryUp()
+    public void moveInventoryUp()
     {
-        float finalYPosition = inventoryRectTransform.anchoredPosition.y + buttonRectTranform.rect.height + inventoryRectTransform.rect.height;
-        inventoryAnimation = LeanTween.moveY(inventoryRectTransform, finalYPosition, 0.5f).setEaseOutQuart().setIgnoreTimeScale(true);
+        inventoryAnimation = LeanTween.moveY(inventoryRectTransform, initialRectPosition.y, 0.5f).setEaseOutQuart().setIgnoreTimeScale(true);
     }
 }

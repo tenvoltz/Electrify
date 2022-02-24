@@ -83,8 +83,8 @@ public class FiniteLineElectricField: ElectricField
             fieldYStrength += (length * 0.5f + distanceAlongRod) / (distanceNormalToRod * distanceToLeftEdgeOfRod);
             fieldYStrength *= PhysicsEMManager.couloumbConstant * charge / length;
         }
-        Vector3 fieldX = distanceVectorAlongRod.normalized * Mathf.Abs(fieldXStrength);
-        Vector3 fieldY = distanceVectorNormalToRod.normalized * Mathf.Abs(fieldYStrength);
+        Vector3 fieldX = distanceVectorAlongRod.normalized * fieldXStrength;
+        Vector3 fieldY = distanceVectorNormalToRod.normalized * fieldYStrength;
         Vector3 field = fieldX + fieldY;
         return field;
     }

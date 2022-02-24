@@ -10,7 +10,7 @@ public class PhysicsObject : MonoBehaviour
     [HideInInspector] public Pivotable pivotable;
     [HideInInspector] public ElectricField electricField;
     [HideInInspector] public ObjectUI UI;
-
+    public ItemType itemType;
     private void Awake()
     {
         if (GetComponentInChildren<ObjectUI>() == null)
