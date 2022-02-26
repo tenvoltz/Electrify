@@ -45,6 +45,7 @@ public class InventoryListInspector : Editor
             SerializedProperty MyChargeableObject = MyListRef.FindPropertyRelative("chargeableObject");
             SerializedProperty MyParticleType = MyListRef.FindPropertyRelative("particleType");
             SerializedProperty MyMagnitude = MyListRef.FindPropertyRelative("magnitude");
+            SerializedProperty MyContactType = MyListRef.FindPropertyRelative("contactType");
             SerializedProperty MyMovableObject = MyListRef.FindPropertyRelative("movableObject");
             SerializedProperty MyMass = MyListRef.FindPropertyRelative("mass");
             SerializedProperty MyPivotableObject = MyListRef.FindPropertyRelative("pivotableObject");
@@ -57,6 +58,7 @@ public class InventoryListInspector : Editor
             {
                 EditorGUILayout.PropertyField(MyParticleType);
                 EditorGUILayout.PropertyField(MyMagnitude);
+                EditorGUILayout.PropertyField(MyContactType);
             }
             EditorGUILayout.PropertyField(MyMovableObject);
             if (MyMovableObject.boolValue || MyPivotableObject.boolValue)

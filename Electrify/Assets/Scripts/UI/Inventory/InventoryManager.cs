@@ -9,7 +9,7 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private GameObject inventory;
     private static GameObject itemSlotPrefab;
 
-    private void Awake()
+    private void Start()
     {
         inventoryList = GetComponent<InventoryList>().inventoryList;
         foreach(InventoryListObject item in inventoryList)

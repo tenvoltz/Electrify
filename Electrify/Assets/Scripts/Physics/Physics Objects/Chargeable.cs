@@ -16,8 +16,7 @@ public enum ParticleType
 [RequireComponent(typeof(PhysicsObject))]
 public class Chargeable : MonoBehaviour
 {
-    [HideInInspector] 
-    public PhysicsObject physicsObject;
+    [HideInInspector] public PhysicsObject physicsObject;
 
     public ParticleType particleType;
     public float magnitude = 1;
@@ -28,11 +27,10 @@ public class Chargeable : MonoBehaviour
     public Color electronColor = new Color(0.357f, 0.808f, 0.980f);
     public Color neutronColor = new Color(0.369f, 0.953f, 0.553f);
     public Color unidentifiedColor = new Color(0.933f, 0.961f, 0.859f);
-
-    private ObjectUI objectUI;
-    private void Awake()
+    public void Init()
     {
         physicsObject = GetComponent<PhysicsObject>();
+        UpdateCharge();
     }
     public void UpdateCharge()
     {
@@ -56,7 +54,7 @@ public class Chargeable : MonoBehaviour
             case ParticleType.Electron: color = electronColor;      break;
             default: Debug.Log("Something has gone wrong", this);   break;
         }
-        this.GetComponent<Renderer>().sharedMaterial.color = color;
+        this.GetComponent<Renderer>().material.color = color;
     }
     private void OnValidate()
     {

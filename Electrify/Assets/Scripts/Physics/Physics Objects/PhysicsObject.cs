@@ -9,47 +9,46 @@ public class PhysicsObject : MonoBehaviour
     [HideInInspector] public Movable movable;
     [HideInInspector] public Pivotable pivotable;
     [HideInInspector] public ElectricField electricField;
+    [HideInInspector] public Conductable conductable;
     [HideInInspector] public ObjectUI UI;
     public ItemType itemType;
     private void Awake()
     {
-        if (GetComponentInChildren<ObjectUI>() == null)
-        {
-            GameObject UIObject = Instantiate(GetUIPrefab(), transform.position, transform.rotation) as GameObject;
-            UIObject.transform.SetParent(transform, true);
-            UI = UIObject.GetComponent<ObjectUI>();
-        }
-        else UI = GetComponentInChildren<ObjectUI>();
-        UI.UpdateSize(this.transform.localScale);
-        UI.UpdatePosition(this.transform.localScale);
+        GetUIReference();
     }
-    private void Start()
+    private void OnEnable()
+    {
+        UpdateReference();
+        UpdateUI();
+    }
+
+    public void UpdateReference()
     {
         chargeable = GetComponent<Chargeable>();
         movable = GetComponent<Movable>();
         pivotable = GetComponent<Pivotable>();
+        conductable = GetComponent<Conductable>();
         electricField = GetComponent<ElectricField>();
-        UpdateUI();
+        InitReference();
     }
-
-    private void UpdateUI()
+    public void InitReference()
     {
-        if (chargeable != null)
-        {
-            UI.EnableChargeDisplay();
-            chargeable.UpdateCharge();
-        }
-        
-        if (movable != null || pivotable != null)
-        {
-            UI.DisableLock();
-        }
-
-        if (pivotable != null)
-        {
-            UI.EnablePivot();
-            pivotable.UpdatePivot();
-        }
+        chargeable?.Init();
+        movable?.Init();
+        pivotable?.Init();
+        conductable?.Init();
+        electricField?.Init();
+    }
+    public void UpdateUI()
+    {
+        if (chargeable != null) UI.EnableChargeDisplay();
+        else UI.DisableChargeDisplay();
+        if (movable != null || pivotable != null) UI.DisableLock();
+        else UI.EnableLock();
+        if (pivotable != null) UI.EnablePivot();
+        else UI.DisablePivot();
+        if (conductable != null) UI.EnableConductorOutline();
+        else UI.EnableInsulatorOutline();
     }
 
     public Vector3 GetDirection()
@@ -64,5 +63,17 @@ public class PhysicsObject : MonoBehaviour
     {
         if (UIPrefab == null) UIPrefab = Resources.Load("Prefabs/ObjectCanvas") as GameObject;
         return UIPrefab;
+    }
+    private void GetUIReference()
+    {
+        if (GetComponentInChildren<ObjectUI>() == null)
+        {
+            GameObject UIObject = Instantiate(GetUIPrefab(), transform.position, transform.rotation) as GameObject;
+            UIObject.transform.SetParent(transform, true);
+            UI = UIObject.GetComponent<ObjectUI>();
+        }
+        else UI = GetComponentInChildren<ObjectUI>();
+        UI.UpdateSize(this.transform.localScale);
+        UI.UpdatePosition(this.transform.localScale);
     }
 }

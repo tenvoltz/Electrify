@@ -56,8 +56,8 @@ public class LevelButton : MonoBehaviour, IPointerDownHandler, IPointerEnterHand
 
     public void retrievePlayerPref()
     {
-        isCompleted = Boolean.Parse(PlayerPrefs.GetString("Level" + level + "isCompleted", isCompleted.ToString()));
-        isLocked = Boolean.Parse(PlayerPrefs.GetString("Level" + level + "isLocked", isLocked.ToString()));
+        isCompleted = Boolean.Parse(PlayerPrefs.GetString("Level " + level + " is Completed", isCompleted.ToString()));
+        isLocked = Boolean.Parse(PlayerPrefs.GetString("Level " + level + " is Locked", isLocked.ToString()));
     }
     public void OnPointerClick(PointerEventData eventData)
     {

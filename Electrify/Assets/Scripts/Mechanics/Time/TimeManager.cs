@@ -53,4 +53,9 @@ public class TimeManager : MonoBehaviour
                 break;
         }
     }
+
+    public static void Reset()
+    {
+        SetTimeScale(TimeState.Resume);
+    }
 }

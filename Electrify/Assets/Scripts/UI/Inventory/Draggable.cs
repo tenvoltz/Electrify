@@ -41,6 +41,8 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             Vector3 position = this.transform.position;
             position.z = 0; //All objects lie on z = 0 plane
             this.transform.position = position;
+            GetComponent<Collider>().enabled = true;
+            GetComponent<Conductable>().Init();
             physicsEMManager.AddPhysicsObject(this.gameObject);
             Destroy(slotButton.gameObject);
             inventoryManager.UpdateLayoutGroup();
@@ -82,7 +84,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     {
         Vector3 position = this.transform.position;
         position.z = 0; //All objects lie on z = 0 plane
-        Collider[] hitColliders = Physics.OverlapBox(position, transform.localScale / 2);
+        Collider[] hitColliders = Physics.OverlapBox(position, transform.localScale / 2, transform.rotation);
         return hitColliders.Length;
     }
 }

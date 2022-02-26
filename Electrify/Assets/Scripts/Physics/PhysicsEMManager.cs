@@ -34,9 +34,9 @@ public class PhysicsEMManager : MonoBehaviour
     private List<GameObject> faradayList;
     void Start()
     {
-        movableObjectsList = new List<Movable>(FindObjectsOfType<Movable>());
-        electricFieldList = new List<ElectricField>(FindObjectsOfType<ElectricField>());
-        magneticFieldList = new List<MagneticField>(FindObjectsOfType<MagneticField>());
+        movableObjectsList = new List<Movable>(GetComponentsInChildren<Movable>());
+        electricFieldList = new List<ElectricField>(GetComponentsInChildren<ElectricField>());
+        magneticFieldList = new List<MagneticField>(GetComponentsInChildren<MagneticField>());
 
         faradayList = new List<GameObject>();
         if (FaradayContainer != null)

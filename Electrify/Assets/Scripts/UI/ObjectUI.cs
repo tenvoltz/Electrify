@@ -12,6 +12,9 @@ public class ObjectUI : MonoBehaviour
     [SerializeField] private RectTransform chargeContainer;
     [SerializeField] private TextMeshProUGUI chargeText;
     private RectTransform canvasRectTransform;
+    [Header("Outline Color")]
+    public Color conductorColor = new Color(0.714f, 0.725f, 0.749f);
+    public Color insulatorColor = new Color(1.000f, 0.588f, 0.051f);
     private void Awake()
     {
         canvasRectTransform = GetComponent<RectTransform>();
@@ -51,7 +54,7 @@ public class ObjectUI : MonoBehaviour
             case ParticleType.Electron: sign = "-";                 break;
             default: Debug.Log("Something has gone wrong", this);   break;
         }
-        chargeText.text = sign + magnitude;
+        chargeText.text = sign + magnitude.ToString("F1");
     }
     public void EnableChargeDisplay()
     {
@@ -80,7 +83,15 @@ public class ObjectUI : MonoBehaviour
     public void setPivot(Vector3 centerOfMass)
     {
         Vector2 offset = new Vector2(centerOfMass.x, centerOfMass.y);
-        pivot.anchoredPosition = pivot.anchoredPosition + offset;
+        pivot.anchoredPosition = offset;
+    }
+    public void EnableConductorOutline()
+    {
+        GetComponentInParent<Renderer>().material.SetColor("_OutlineColor", conductorColor);
+    }
+    public void EnableInsulatorOutline()
+    {
+        GetComponentInParent<Renderer>().material.SetColor("_OutlineColor", insulatorColor);
     }
 
 }

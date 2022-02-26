@@ -17,7 +17,7 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler, IPointerEnte
     public Color OnPressColor;
     public Color DefaultColor;
     public Color InEffectColor;
-    private static LTDescr inventoryAnimation;
+    private LTDescr inventoryAnimation;
     private Vector2 initialRectPosition;
     private void Awake()
     {

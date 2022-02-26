@@ -9,11 +9,9 @@ public class Movable : MonoBehaviour
     [HideInInspector] public Rigidbody rb;
     public float mass = 1;
     public Vector3 initialVelocity;
-
-    private void Awake()
+    public void Init()
     {
         physicsObject = GetComponent<PhysicsObject>();
-
         if (GetComponent<Rigidbody>() != null) rb = GetComponent<Rigidbody>();
         else rb = gameObject.AddComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.None;
@@ -21,16 +19,15 @@ public class Movable : MonoBehaviour
         rb.velocity = initialVelocity;
         rb.useGravity = false;
     }
-    private void OnValidate()
-    {
-        if (mass < 0) mass = 0;
-        UpdateMass();
-    }
 
     public void UpdateMass()
     {
         if (rb != null) rb.mass = mass;
     }
 
-
+    private void OnValidate()
+    {
+        if (mass < 0) mass = 0;
+        UpdateMass();
+    }
 }

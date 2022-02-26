@@ -9,29 +9,29 @@ public class Pivotable : MonoBehaviour
     private Movable movable;
     [Range(-1, 1)] 
     public float pivotFromCenterAt;
-    private void Awake()
+    public void Init()
     {
-        movable = GetComponent<Movable>();
-        physicsObject = movable.physicsObject;
+        physicsObject = GetComponent<PhysicsObject>();
+        movable = physicsObject.movable;
         movable.rb.constraints = RigidbodyConstraints.FreezePosition;
-        movable.rb.centerOfMass = pivotFromCenterAt * physicsObject.GetLength() * 0.5f * physicsObject.GetDirection();
+        movable.rb.centerOfMass = GetPivot();
         movable.rb.useGravity = false;
+        UpdatePivot();
+    }
+    public void UpdatePivot()
+    {
+        if (movable != null) movable.rb.centerOfMass = GetPivot();
+        if (physicsObject != null) physicsObject.UI.setPivot(movable.rb.centerOfMass);
+    }
+
+    private Vector3 GetPivot()
+    {
+        return pivotFromCenterAt * physicsObject.GetLength() * 0.5f * Vector3.right;
     }
 
     private void OnValidate()
     {
         UpdatePivot();
-    }
-
-    public void UpdatePivot()
-    {
-        movable.rb.centerOfMass = pivotFromCenterAt * physicsObject.GetLength() * 0.5f * physicsObject.GetDirection();
-        if (physicsObject != null)  physicsObject.UI.setPivot(movable.rb.centerOfMass);
-    }
-
-    private Vector3 GetPivot()
-    {
-        return pivotFromCenterAt * physicsObject.GetLength() * 0.5f * physicsObject.GetDirection();
     }
 
 

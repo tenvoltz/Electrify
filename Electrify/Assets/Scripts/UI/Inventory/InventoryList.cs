@@ -10,6 +10,7 @@ public class InventoryListObject
     public bool chargeableObject;
     public ParticleType particleType;
     public float magnitude;
+    public ContactType contactType;
     public bool movableObject;
     public float mass;
     public bool pivotableObject;
@@ -19,6 +20,11 @@ public enum ItemType
 {
     Sphere = 1,
     Rod = 2,
+}
+public enum ContactType
+{
+    Conductor = 1,
+    Insulator = 2
 }
 //Thanks ForceX for the code
 public class InventoryList : MonoBehaviour

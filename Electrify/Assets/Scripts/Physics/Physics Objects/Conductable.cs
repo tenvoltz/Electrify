@@ -7,24 +7,18 @@ using UnityEngine;
 [RequireComponent(typeof(MeshFilter))]
 public class Conductable : MonoBehaviour
 {
+    private PhysicsObject physicsObject;
     private Chargeable chargeable;
-    private Mesh objectMesh;
     private float meshSurfaceArea;
     private float radius;
-    public float temporaryCharge;
-    private void Awake()
+    private float temporaryCharge;
+    public void Init()
     {
-        chargeable = GetComponent<Chargeable>();
-        objectMesh = GetComponent<MeshFilter>().mesh;
-        meshSurfaceArea = CalculateSurfaceArea(objectMesh,this.transform.localScale);
-        radius = Mathf.Sqrt(meshSurfaceArea / (4 * Mathf.PI));
-        switch (chargeable.particleType)
-        {
-            case ParticleType.Proton: temporaryCharge = chargeable.magnitude; break;
-            case ParticleType.Neutron: temporaryCharge = 0; break;
-            case ParticleType.Electron: temporaryCharge = -1 * chargeable.magnitude; break;
-            default: Debug.Log("Something has gone wrong", this); break;
-        }
+        physicsObject = GetComponent<PhysicsObject>();
+        chargeable = physicsObject.chargeable;
+        meshSurfaceArea = CalculateSurfaceArea(GetComponent<MeshFilter>().mesh, this.transform.localScale);
+        radius = Mathf.Sqrt(meshSurfaceArea / (4 * Mathf.PI)); //Assume equipotential surface of that of a sphere
+        temporaryCharge = chargeable.charge;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -33,6 +27,7 @@ public class Conductable : MonoBehaviour
         if(collided != null)
         {
             float otherRadius = collided.getRadius();
+            Debug.Log(radius + " " + otherRadius, this);
             float otherCharge = collided.temporaryCharge;
             float totalCharge = this.temporaryCharge + otherCharge;
             float thisResultantCharge = totalCharge / (otherRadius / radius + 1);
@@ -49,12 +44,10 @@ public class Conductable : MonoBehaviour
     {
         temporaryCharge = chargeable.charge;
     }
-
     public float getRadius()
     {
         return radius;
     }
-
     private float CalculateSurfaceArea(Mesh mesh, Vector3 scale)
     {
         Vector3[] meshVertices = mesh.vertices;

@@ -5,12 +5,12 @@ using UnityEngine;
 [RequireComponent(typeof(Chargeable))]
 public abstract class ElectricField : MonoBehaviour
 {
-    public PhysicsObject physicsObject;
-    public Chargeable chargeable;
-    private void Start()
+    [HideInInspector] public PhysicsObject physicsObject;
+    [HideInInspector] public Chargeable chargeable;
+    public void Init()
     {
-        chargeable = GetComponent<Chargeable>();
-        physicsObject = chargeable.physicsObject;
+        physicsObject = GetComponent<PhysicsObject>();
+        chargeable = physicsObject.chargeable;
     }
     public abstract Vector3 GetField(Vector3 other);
     public abstract Vector3 GetExposedFieldFromFaraday(Vector3 other, List<GameObject> faradayObjects);

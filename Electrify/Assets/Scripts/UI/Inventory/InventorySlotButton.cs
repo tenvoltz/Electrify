@@ -29,29 +29,31 @@ public class InventorySlotButton : MonoBehaviour, IPointerDownHandler
     {
         if (inventoryItem.itemType == ItemType.Rod) item = Instantiate(GetRodPrefab()); 
         else item = Instantiate(GetSpherePrefab());
-        item.GetComponent<PhysicsObject>().itemType = inventoryItem.itemType;
-        SetDimensionInButtonMode(item);
+        item.GetComponent<Collider>().enabled = false;
+        item.SetActive(false);
+        PhysicsObject physicsObject = item.GetComponent<PhysicsObject>();
+        physicsObject.itemType = inventoryItem.itemType;
         if (inventoryItem.chargeableObject)
         {
             Chargeable chargeable = item.AddComponent<Chargeable>();
             chargeable.particleType = inventoryItem.particleType;
             chargeable.magnitude = inventoryItem.magnitude;
-            chargeable.UpdateCharge();
             if (inventoryItem.itemType == ItemType.Sphere) item.AddComponent<PointChargeElectricField>();
             else if (inventoryItem.itemType == ItemType.Rod) item.AddComponent<FiniteLineElectricField>();
+            if (inventoryItem.contactType == ContactType.Conductor) item.AddComponent<Conductable>();
         }
         if (inventoryItem.movableObject)
         {
             Movable movable = item.AddComponent<Movable>();
             movable.mass = inventoryItem.mass;
-            movable.UpdateMass();
         }
         if (inventoryItem.pivotableObject)
         {
             Pivotable pivotable = item.AddComponent<Pivotable>();
             pivotable.pivotFromCenterAt = inventoryItem.pivotFromCenterAt;
-            pivotable.UpdatePivot();
         }
+        SetDimensionInButtonMode(item);
+        item.SetActive(true);
     }
     private GameObject GetSpherePrefab()
     {
@@ -67,7 +69,7 @@ public class InventorySlotButton : MonoBehaviour, IPointerDownHandler
     public void SetDimensionInButtonMode(GameObject item)
     {
         PhysicsObject physicsObject = item.GetComponent<PhysicsObject>();
-        item.transform.SetParent(this.transform, true);
+        item.transform.SetParent(this.transform, false);
         RectTransform buttonRectTransform = GetComponent<RectTransform>();
         float buttonSize = Mathf.Min(buttonRectTransform.rect.width, buttonRectTransform.rect.height); //Get the button's smallest dimension
         item.transform.localPosition = new Vector3(0,0,-1);
