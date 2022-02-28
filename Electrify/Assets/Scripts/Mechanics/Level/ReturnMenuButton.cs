@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class ReturnMenuButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
-    private RectTransform rectTransform;
-    private Image image;
+    [SerializeField] private RectTransform rectTransform;
+    [SerializeField] private Image image;
     [Header("Interaction")]
     public Color OnHoverColor;
     public Color OnPressColor;
@@ -16,8 +16,6 @@ public class ReturnMenuButton : MonoBehaviour, IPointerClickHandler, IPointerEnt
     private Vector3 initialPosition;
     private void Awake()
     {
-        rectTransform = GetComponent<RectTransform>();
-        image = GetComponent<Image>();
         image.color = DefaultColor;
         initialPosition = rectTransform.localPosition;
     }
@@ -28,7 +26,7 @@ public class ReturnMenuButton : MonoBehaviour, IPointerClickHandler, IPointerEnt
     public void OnPointerEnter(PointerEventData eventData)
     {
         Vector3 finalPosition = initialPosition + Vector3.left * rectTransform.rect.width / 4;
-        swayAnimation = LeanTween.moveLocal(gameObject, finalPosition, 1).setIgnoreTimeScale(true).setLoopPingPong().setEaseInOutCubic();
+        swayAnimation = LeanTween.moveLocal(rectTransform.gameObject, finalPosition, 1).setIgnoreTimeScale(true).setLoopPingPong().setEaseInOutCubic();
         if (image != null) image.color = OnHoverColor;
     }
     public void OnPointerExit(PointerEventData eventData)

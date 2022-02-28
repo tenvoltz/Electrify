@@ -25,7 +25,7 @@ public class ResetLevelButton : MonoBehaviour, IPointerClickHandler, IPointerEnt
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        rotationAnimation = LeanTween.rotateAroundLocal(rectTransform, Vector3.forward, 360, 5).setIgnoreTimeScale(true).setLoopClamp(-1);
+        rotationAnimation = LeanTween.rotateAroundLocal(rectTransform, Vector3.forward, -360, 5).setIgnoreTimeScale(true).setRepeat(-1);
         if (image != null) image.color = OnHoverColor;
     }
     public void OnPointerExit(PointerEventData eventData)

@@ -28,10 +28,6 @@ public class ObjectUI : MonoBehaviour
         //chargeContainer.transform.LookAt(Camera.main.transform.position); //Rotate so it would always flat to camera, if perspective view
         chargeContainer.eulerAngles = new Vector3(0, 180, 0);
     }
-    public void UpdateLocalScale(Vector3 localScale)
-    {
-        canvasRectTransform.localScale = new Vector3(1 / localScale.x, 1/localScale.y, 1/localScale.z);
-    }
     public void UpdateSize(Vector3 size)
     {
         canvasRectTransform.sizeDelta = new Vector2(size.x, size.y);
