@@ -6,18 +6,18 @@ using UnityEngine;
 public class FieldDisplayer : MonoBehaviour
 {
     [SerializeField] private GameObject fieldManager;
-    private List<MagneticField> mfs;
+    private List<OldMagneticField> mfs;
     private Texture2D mask;
 
     [SerializeField] private float xSpace = 1f;
     [SerializeField] private float zSpace = 1f;
     void Start()
     {
-        mfs = new List<MagneticField>();
+        mfs = new List<OldMagneticField>();
         foreach(Transform child in fieldManager.transform)
         {
             MagneticField[] childMF = child.GetComponentsInChildren<MagneticField>();
-            if(childMF.Length > 0) mfs.Add(child.GetComponentsInChildren<MagneticField>()[0]);
+            if(childMF.Length > 0) mfs.Add(child.GetComponentsInChildren<OldMagneticField>()[0]);
         }
         GenerateTexture();
     }
@@ -33,7 +33,7 @@ public class FieldDisplayer : MonoBehaviour
             for (int x = 0; x < mask.width; x++){
                 Vector3 location = transform.TransformPoint(new Vector3((x+0.5f) * xSpace, 0.0f, (z+0.5f) * zSpace) - b.extents);
                 Color color = Color.clear;
-                foreach(MagneticField mf in mfs)
+                foreach(OldMagneticField mf in mfs)
                 {
                     color += mf.GetColor(location);
                 }

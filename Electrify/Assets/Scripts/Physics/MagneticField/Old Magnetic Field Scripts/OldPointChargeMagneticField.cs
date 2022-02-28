@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(MovingParticle))]
-public class PointChargeMagneticField : MagneticField
+public class OldPointChargeMagneticField : OldMagneticField
 {
     private MovingParticle mp;
     private Rigidbody rb;

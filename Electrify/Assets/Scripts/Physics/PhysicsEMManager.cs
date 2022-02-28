@@ -5,13 +5,16 @@ using UnityEngine;
 public class PhysicsEMManager : MonoBehaviour
 {
     public static float couloumbConstant = 1;
+    public static float magneticPermeabilityConstant = 1;
     public static int rodSubdivisions = 10;
     //cannot access static variable directly, so this is created
-    public float _coulombConstant = 1; 
+    public float _coulombConstant = 1;
+    public float _magneticPermeabilityConstant = 1;
     public int _rodSubdivisions = 10;
     private void OnValidate()
     {
         couloumbConstant = _coulombConstant;
+        magneticPermeabilityConstant = _magneticPermeabilityConstant;
         rodSubdivisions = _rodSubdivisions;
     }
 
@@ -19,18 +22,12 @@ public class PhysicsEMManager : MonoBehaviour
     private float timeInterval = 1f / 60;
     [SerializeField] private GameObject FaradayContainer;
 
-    private List<MovingParticle> movingParticleList;
-    private List<MovingRod> movingRodList;
+    //private List<MovingParticle> movingParticleList;
+    //private List<MovingRod> movingRodList;
 
     private List<Movable> movableObjectsList;
-    //ElectricField point, rod, plane, uniform, 
-    private List<ElectricField> electricFieldList;
-
-    //private List<PointChargeMagneticField> magneticParticleList;
-    //private List<UniformMagneticField> magneticPlaneList;
-    //private List<UniformMagneticField> magneticUniformList;
-    //Magnetic field point, plane, uniform, wire
-    private List<MagneticField> magneticFieldList;
+    private List<ElectricField> electricFieldList; //point, rod, plane, uniform
+    private List<MagneticField> magneticFieldList; //point, wire, plane, uniform
     private List<GameObject> faradayList;
     void Start()
     {
@@ -65,7 +62,7 @@ public class PhysicsEMManager : MonoBehaviour
                 yield return new WaitForSeconds(Random.Range(0, timeInterval));
             }
             ApplyElectricForce(movable);
-            //ApplyMagneticForce(movable);
+            ApplyMagneticForce(movable);
             yield return new WaitForSeconds(timeInterval);
         }
     }
@@ -87,7 +84,7 @@ public class PhysicsEMManager : MonoBehaviour
                 movable.rb.AddForceAtPosition(segment.charge * combinedElectricField, segment.position);
             }
         }
-        else
+        else if(movable.physicsObject.electricField is PointChargeElectricField)
         {
             Vector3 combinedElectricField = Vector3.zero;
             foreach (ElectricField electricField in electricFieldList)
@@ -97,6 +94,41 @@ public class PhysicsEMManager : MonoBehaviour
                 else combinedElectricField += electricField.GetExposedFieldFromFaraday(movable.transform.position, faradayList);
             }
             movable.rb.AddForce(movable.physicsObject.chargeable.charge * combinedElectricField);
+        }
+    }
+
+    private void ApplyMagneticForce(Movable movable)
+    {
+        if (movable.physicsObject.electricField is FiniteLineElectricField) return;
+        if (movable.physicsObject.magneticField is StraightWireMagneticField)
+        {
+            StraightWireMagneticField magneticField1 = (StraightWireMagneticField)movable.physicsObject.magneticField;
+            foreach (StraightWireMagneticField.Segment segment in magneticField1.GetSegments())
+            {
+                Vector3 combinedMagneticField = Vector3.zero;
+                foreach (MagneticField magneticField2 in magneticFieldList)
+                {
+                    if (magneticField2.gameObject == movable.gameObject) continue;
+                    if (magneticField2 is StraightWireMagneticField)
+                    {
+                        combinedMagneticField += ((StraightWireMagneticField)magneticField2).GetFieldFromThisWireSegment(segment.position);
+                    }
+                    else combinedMagneticField += magneticField2.GetField(segment.position);
+                }
+                Vector3 combinedMagneticforce = Vector3.Cross(combinedMagneticField, segment.current * (segment.length*segment.direction));
+                movable.rb.AddForceAtPosition(combinedMagneticforce, segment.position);
+            }
+        }
+        else if (movable.physicsObject.electricField is PointChargeElectricField)
+        {
+            Vector3 combinedMagneticField = Vector3.zero;
+            foreach (MagneticField magneticField in magneticFieldList)
+            {
+                if (magneticField.gameObject == movable.gameObject) continue;
+                combinedMagneticField += magneticField.GetField(movable.transform.position);
+            }
+            //Unity uses a left-handed cross product. Need to flip F = qv x B -> F = B x qv for left-handed system.
+            movable.rb.AddForce(Vector3.Cross(combinedMagneticField,movable.physicsObject.chargeable.charge * movable.rb.velocity));
         }
     }
 

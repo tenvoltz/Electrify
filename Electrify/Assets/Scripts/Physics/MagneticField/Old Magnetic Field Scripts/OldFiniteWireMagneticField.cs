@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FiniteWireMagneticField : MagneticField
+public class OldFiniteWireMagneticField : OldMagneticField
 {
     [SerializeField] private int current = 1;
     private float u = 1;

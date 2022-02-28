@@ -9,6 +9,7 @@ public class PhysicsObject : MonoBehaviour
     [HideInInspector] public Movable movable;
     [HideInInspector] public Pivotable pivotable;
     [HideInInspector] public ElectricField electricField;
+    [HideInInspector] public MagneticField magneticField;
     [HideInInspector] public Conductable conductable;
     [HideInInspector] public ObjectUI UI;
     public ItemType itemType;
@@ -29,6 +30,7 @@ public class PhysicsObject : MonoBehaviour
         pivotable = GetComponent<Pivotable>();
         conductable = GetComponent<Conductable>();
         electricField = GetComponent<ElectricField>();
+        magneticField = GetComponent<MagneticField>();
         InitReference();
     }
     public void InitReference()
@@ -38,6 +40,7 @@ public class PhysicsObject : MonoBehaviour
         pivotable?.Init();
         conductable?.Init();
         electricField?.Init();
+        magneticField?.Init();
     }
     public void UpdateUI()
     {

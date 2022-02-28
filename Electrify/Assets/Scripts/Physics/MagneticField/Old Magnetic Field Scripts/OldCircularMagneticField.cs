@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CircularMagneticField : MagneticField
+public class OldCircularMagneticField : OldMagneticField
 {
     public Vector3 direction = Vector3.zero;
     public int strength = 1;

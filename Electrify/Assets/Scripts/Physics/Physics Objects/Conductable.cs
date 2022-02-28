@@ -27,7 +27,6 @@ public class Conductable : MonoBehaviour
         if(collided != null)
         {
             float otherRadius = collided.getRadius();
-            Debug.Log(radius + " " + otherRadius, this);
             float otherCharge = collided.temporaryCharge;
             float totalCharge = this.temporaryCharge + otherCharge;
             float thisResultantCharge = totalCharge / (otherRadius / radius + 1);
