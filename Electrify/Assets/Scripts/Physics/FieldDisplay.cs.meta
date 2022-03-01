@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7ae349fca85b91e4bae1fecaaacbcee8
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - pointingArrow: {fileID: 21300000, guid: 70c97e3e5c87f13489a81f4c686182ce, type: 3}
+  - outArrow: {fileID: 21300000, guid: 332a3a9ffb5c9ec4bb7b4cf902af12c3, type: 3}
+  - inArrow: {fileID: 21300000, guid: 9119d23296ddc3649aaf0d1a65995e4c, type: 3}
+  - FaradayContainer: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

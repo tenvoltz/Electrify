@@ -12,6 +12,12 @@ public class LevelManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        LoadMainMenuScene();
+    }
+
+    public void LoadMainMenuScene()
+    {
+        SceneManager.LoadSceneAsync("Main Menu", LoadSceneMode.Additive);
     }
 
     public void moveToLevelByGoal(int nextLevel) //Assume Level is ID of level which start at 1
