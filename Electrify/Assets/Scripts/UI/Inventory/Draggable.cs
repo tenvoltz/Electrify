@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,7 +33,12 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     }
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (isHoverOnButton() || isOverlapping(this.GetComponent<PhysicsObject>().itemType))
+        bool isHoverOnWires = false;
+        foreach (BarbedWire barbedWire in slotButton.barbedWireList)
+        {
+            isHoverOnWires = isHoverOnWires || barbedWire.isHoverOnWire();
+        }
+        if (isHoverOnWires || slotButton.isHoverOnButton() || isOverlapping(this.GetComponent<PhysicsObject>().itemType))
         {
             slotButton.RetrieveInventoryItem(this.gameObject);
         }
@@ -59,7 +65,12 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         foreach (RaycastResult hit in hits)
         {
             GameObject collidedGameObject = hit.gameObject;
+            Debug.Log(hit.gameObject);
             if (collidedGameObject.transform.parent == slotButton.transform) return true;
+            foreach(BarbedWire barbedWire in slotButton.barbedWireList)
+            {
+                if (collidedGameObject.transform.parent == barbedWire.transform) return true;
+            }
         }
         return false;
     }

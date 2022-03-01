@@ -5,16 +5,19 @@ using UnityEngine;
 
 public class GoalDetector : MonoBehaviour
 {
-    [SerializeField] private GameObject targetObject;
     [SerializeField] private float duration;
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject == targetObject)
+        if (other.GetComponent<Goalable>() == null) return;
+        else
         {
-            Vector3 position = transform.position + transform.TransformDirection(new Vector3(1, 1, 0)) * 2;
-            GameObject timerObject = Instantiate(LevelManager.Instance.getTimerPrefab(), position, Quaternion.identity);
-            timerObject.transform.SetParent(transform, true);
-            timerObject.GetComponent<Timer>().countDown(duration, WinLevel);
+            if(other.GetComponent<Goalable>().myGoal.gameObject == gameObject)
+            {
+                Vector3 position = transform.position + transform.TransformDirection(new Vector3(1, 1, 0)) * 2;
+                GameObject timerObject = Instantiate(LevelManager.Instance.getTimerPrefab(), position, Quaternion.identity);
+                timerObject.transform.SetParent(transform, true);
+                timerObject.GetComponent<Timer>().countDown(duration, WinLevel);
+            }
         }
     }
 

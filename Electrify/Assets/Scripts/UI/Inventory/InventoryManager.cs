@@ -7,10 +7,13 @@ public class InventoryManager : MonoBehaviour
 {
     [SerializeField] private List<InventoryListObject> inventoryList;
     [SerializeField] private GameObject inventory;
+    [SerializeField] private GameObject barbedWires;
+    private List<BarbedWire> barbedWireList;
     private static GameObject itemSlotPrefab;
 
     private void Start()
     {
+        barbedWireList = new List<BarbedWire>(barbedWires.GetComponentsInChildren<BarbedWire>());
         inventoryList = GetComponent<InventoryList>().inventoryList;
         foreach(InventoryListObject item in inventoryList)
         {
@@ -24,6 +27,7 @@ public class InventoryManager : MonoBehaviour
         InventorySlotButton slotButton = itemButton.GetComponent<InventorySlotButton>();
         slotButton.inventoryManager = this;
         slotButton.inventoryItem = inventoryItem;
+        slotButton.barbedWireList = barbedWireList;
         slotButton.GenerateInventoryItem();
     }
     public void UpdateLayoutGroup()

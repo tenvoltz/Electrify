@@ -13,7 +13,7 @@ public class Pivotable : MonoBehaviour
     {
         physicsObject = GetComponent<PhysicsObject>();
         movable = physicsObject.movable;
-        movable.rb.constraints = RigidbodyConstraints.FreezePosition;
+        movable.rb.constraints = movable.rb.constraints | RigidbodyConstraints.FreezePosition;
         movable.rb.centerOfMass = GetPivot();
         movable.rb.useGravity = false;
         UpdatePivot();
