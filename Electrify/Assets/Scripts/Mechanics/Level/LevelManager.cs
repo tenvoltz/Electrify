@@ -4,22 +4,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Text.RegularExpressions;
+using UnityEditor;
 
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance;
+    public static GameObject timerPrefab;
+    public LoadingScreen loadingScreen;
     [SerializeField] private List<Level> levels;
     private void Awake()
     {
         Instance = this;
-        LoadMainMenuScene();
+        //LoadMainMenuScene();
     }
 
     public void LoadMainMenuScene()
     {
         SceneManager.LoadSceneAsync("Main Menu", LoadSceneMode.Additive);
     }
-
     public void moveToLevelByGoal(int nextLevel) //Assume Level is ID of level which start at 1
     {
         if(nextLevel > levels.Count)
@@ -54,12 +56,32 @@ public class LevelManager : MonoBehaviour
     }
     public IEnumerator switchFromSceneToScene(String unloadScene, String loadScene)
     {
+        loadingScreen.FadeIn();
+        ProgressBar progressBar = loadingScreen.GetComponentInChildren<ProgressBar>();
+        yield return null;
         AsyncOperation asyncOperation = SceneManager.UnloadSceneAsync(unloadScene);
-        yield return asyncOperation;
+        while (!asyncOperation.isDone)
+        {
+            progressBar.setFillPercentage(asyncOperation.progress / 2);
+            yield return null;
+        }
+
         LeanTween.reset();
         TimeManager.Reset();
+
         asyncOperation = SceneManager.LoadSceneAsync(loadScene, LoadSceneMode.Additive);
-        yield return asyncOperation;
+        asyncOperation.allowSceneActivation = false;
+        while (!asyncOperation.isDone)
+        {
+            progressBar.setFillPercentage(asyncOperation.progress / 2 + 0.5f);
+            if (asyncOperation.progress >= 0.9f)
+            {
+                asyncOperation.allowSceneActivation = true;
+            }
+            yield return null;
+        }
+        progressBar.setFillPercentage(1);
+        loadingScreen.FadeOut();
     }
     public int getCurrentLevel()
     {
@@ -72,5 +94,10 @@ public class LevelManager : MonoBehaviour
             }
         }
         return 0;
+    }
+    public GameObject getTimerPrefab()
+    {
+        if (timerPrefab == null) timerPrefab = Resources.Load("Prefabs/Timer") as GameObject;
+        return timerPrefab;
     }
 }

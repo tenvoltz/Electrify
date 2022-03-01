@@ -14,7 +14,7 @@ public class Movable : MonoBehaviour
         physicsObject = GetComponent<PhysicsObject>();
         if (GetComponent<Rigidbody>() != null) rb = GetComponent<Rigidbody>();
         else rb = gameObject.AddComponent<Rigidbody>();
-        rb.constraints = RigidbodyConstraints.None;
+        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY;
         rb.mass = mass;
         rb.velocity = initialVelocity;
         rb.useGravity = false;

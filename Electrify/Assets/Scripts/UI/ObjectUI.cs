@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using JetBrains.Annotations;
 
@@ -11,6 +12,7 @@ public class ObjectUI : MonoBehaviour
     [SerializeField] private RectTransform pivot;
     [SerializeField] private RectTransform chargeContainer;
     [SerializeField] private TextMeshProUGUI chargeText;
+    [SerializeField] private RectTransform goal;
     private RectTransform canvasRectTransform;
     [Header("Outline Color")]
     public Color conductorColor = new Color(0.714f, 0.725f, 0.749f);
@@ -28,22 +30,16 @@ public class ObjectUI : MonoBehaviour
         //chargeContainer.transform.LookAt(Camera.main.transform.position); //Rotate so it would always flat to camera, if perspective view
         chargeContainer.eulerAngles = new Vector3(0, 180, 0);
     }
-    public void UpdateLocalScale(Vector3 localScale)
-    {
-        canvasRectTransform.localScale = new Vector3(1 / localScale.x, 1/localScale.y, 1/localScale.z);
-    }
     public void UpdateSize(Vector3 size)
     {
         canvasRectTransform.sizeDelta = new Vector2(size.x, size.y);
     }
-
     public void UpdatePosition(Vector3 size)
     {
         Vector3 localPosition = canvasRectTransform.localPosition;
         localPosition.z = size[2] * 0.6f;
         canvasRectTransform.localPosition = localPosition;
     }
-
     public void UpdateChargeUI(ParticleType particleType, float magnitude)
     {
         string sign = "";
@@ -92,6 +88,18 @@ public class ObjectUI : MonoBehaviour
     public void EnableInsulatorOutline()
     {
         GetComponentInParent<Renderer>().material.SetColor("_OutlineColor", insulatorColor);
+    }
+    public void DisableGoal()
+    {
+        goal.gameObject.SetActive(false);
+    }
+    public void EnableGoal()
+    {
+        goal.gameObject.SetActive(true);
+    }
+    public void UpdateGoalColor(GoalDetector goalDetector)
+    {
+        goal.GetComponent<Image>().color = goalDetector.GetComponentInChildren<Renderer>().material.color;
     }
 
 }

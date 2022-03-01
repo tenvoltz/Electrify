@@ -12,6 +12,9 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler, IPointerEnte
     private Image image;
     private RectTransform buttonRectTranform;
     private bool isPressed = false;
+    [Header("Sprite")]
+    public Sprite inventoryClose;
+    public Sprite inventoryOpen;
     [Header("Interaction")]
     public Color OnHoverColor;
     public Color OnPressColor;
@@ -41,7 +44,12 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler, IPointerEnte
     }
     public void SetDefaultColor()
     {
-        if (image != null) image.color = isPressed ? InEffectColor : DefaultColor;
+        if (image != null)
+        {
+            image.color = isPressed ? InEffectColor : DefaultColor;
+            image.sprite = isPressed ? inventoryOpen : inventoryClose;
+        }
+
     }
     public void OnPointerClick(PointerEventData eventData)
     {

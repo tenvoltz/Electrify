@@ -10,6 +10,7 @@ public class InventorySlotButton : MonoBehaviour, IPointerDownHandler
     [HideInInspector] public InventoryManager inventoryManager;
     [HideInInspector] public InventoryListObject inventoryItem;
     [HideInInspector] public GameObject item;
+    [HideInInspector] public List<BarbedWire> barbedWireList;
     private static PhysicsEMManager physicsEMManager;
     [Header("Prefab")]
     [SerializeField] private GameObject spherePrefab;
@@ -24,7 +25,6 @@ public class InventorySlotButton : MonoBehaviour, IPointerDownHandler
         draggable.slotButton = this;
         draggable.inventoryManager = inventoryManager;
     }
-
     public void GenerateInventoryItem()
     {
         if (inventoryItem.itemType == ItemType.Rod) item = Instantiate(GetRodPrefab()); 
@@ -65,7 +65,6 @@ public class InventorySlotButton : MonoBehaviour, IPointerDownHandler
         if (rodPrefab == null) rodPrefab = Resources.Load("Prefabs/Rod") as GameObject;
         return rodPrefab;
     }
-
     public void SetDimensionInButtonMode(GameObject item)
     {
         PhysicsObject physicsObject = item.GetComponent<PhysicsObject>();
@@ -88,12 +87,24 @@ public class InventorySlotButton : MonoBehaviour, IPointerDownHandler
             UI.UpdateSize(Vector3.one * 2);
         }
     }
-
     public void RetrieveInventoryItem(GameObject _item)
     {
         if (item != _item) return;
         RectTransform buttonRectTransform = GetComponent<RectTransform>();
         Vector3 buttonCenter = buttonRectTransform.TransformPoint(buttonRectTransform.rect.center);
         LeanTween.move(item, buttonCenter, 1f).setIgnoreTimeScale(true).setEaseOutCubic().setOnComplete(() => { SetDimensionInButtonMode(item); });
+    }
+    public bool isHoverOnButton()
+    {
+        List<RaycastResult> hits = new List<RaycastResult>();
+        PointerEventData pointer = new PointerEventData(null);
+        pointer.position = Input.mousePosition;
+        graphicRaycaster.Raycast(pointer, hits);
+        foreach (RaycastResult hit in hits)
+        {
+            GameObject collidedGameObject = hit.gameObject;
+            if (collidedGameObject.transform.parent == transform) return true;
+        }
+        return false;
     }
 }

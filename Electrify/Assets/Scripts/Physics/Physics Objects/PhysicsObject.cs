@@ -11,6 +11,7 @@ public class PhysicsObject : MonoBehaviour
     [HideInInspector] public ElectricField electricField;
     [HideInInspector] public MagneticField magneticField;
     [HideInInspector] public Conductable conductable;
+    [HideInInspector] public Goalable goalable;
     [HideInInspector] public ObjectUI UI;
     public ItemType itemType;
     private void Awake()
@@ -20,7 +21,6 @@ public class PhysicsObject : MonoBehaviour
     private void OnEnable()
     {
         UpdateReference();
-        UpdateUI();
     }
 
     public void UpdateReference()
@@ -29,6 +29,7 @@ public class PhysicsObject : MonoBehaviour
         movable = GetComponent<Movable>();
         pivotable = GetComponent<Pivotable>();
         conductable = GetComponent<Conductable>();
+        goalable = GetComponent<Goalable>();
         electricField = GetComponent<ElectricField>();
         magneticField = GetComponent<MagneticField>();
         InitReference();
@@ -39,8 +40,10 @@ public class PhysicsObject : MonoBehaviour
         movable?.Init();
         pivotable?.Init();
         conductable?.Init();
+        goalable?.Init();
         electricField?.Init();
         magneticField?.Init();
+        UpdateUI();
     }
     public void UpdateUI()
     {
@@ -52,6 +55,8 @@ public class PhysicsObject : MonoBehaviour
         else UI.DisablePivot();
         if (conductable != null) UI.EnableConductorOutline();
         else UI.EnableInsulatorOutline();
+        if (goalable != null) UI.EnableGoal();
+        else UI.DisableGoal();
     }
 
     public Vector3 GetDirection()

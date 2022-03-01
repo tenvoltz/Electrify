@@ -73,11 +73,13 @@ MonoBehaviour:
     chargeableObject: 0
     particleType: 0
     magnitude: 0
+    contactType: 0
     movableObject: 0
     mass: 0
     pivotableObject: 0
     pivotFromCenterAt: 0
   item: {fileID: 0}
+  barbedWireList: []
   spherePrefab: {fileID: 0}
   rodPrefab: {fileID: 0}
 --- !u!223 &-2136554585856506441
@@ -113,7 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
+  m_IgnoreReversedGraphics: 0
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
