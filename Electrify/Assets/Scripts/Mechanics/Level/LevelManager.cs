@@ -10,17 +10,30 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance;
     public static GameObject timerPrefab;
-    public LoadingScreen loadingScreen;
+    public FadeScreen loadingScreen;
+    public FadeScreen winningScreen;
     [SerializeField] private List<Level> levels;
     private void Awake()
     {
         Instance = this;
         //LoadMainMenuScene();
+        levels = new List<Level>(GetComponentsInChildren<Level>());
     }
-
+    public Level GetLevel(int levelID)
+    {
+        foreach(Level level in levels)
+        {
+            if (level.ID == levelID) return level;
+        }
+        return null;
+    } 
     public void LoadMainMenuScene()
     {
         SceneManager.LoadSceneAsync("Main Menu", LoadSceneMode.Additive);
+    }
+    public void moveToNextLevel()
+    {
+        moveToLevelByGoal(getCurrentLevel() + 1);
     }
     public void moveToLevelByGoal(int nextLevel) //Assume Level is ID of level which start at 1
     {
@@ -53,6 +66,10 @@ public class LevelManager : MonoBehaviour
     public void returnToMainMenu(int currentLevel)
     {
         StartCoroutine(switchFromSceneToScene("Level " + currentLevel, "Main Menu"));
+    }
+    public void returnToMainMenuFromLevel()
+    {
+        returnToMainMenu(getCurrentLevel());
     }
     public IEnumerator switchFromSceneToScene(String unloadScene, String loadScene)
     {

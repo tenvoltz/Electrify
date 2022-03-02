@@ -24,7 +24,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        this.transform.parent = GetPhysicsEMManager().gameObject.transform;
+        this.transform.parent = GetPhysicsEMManager().PhysicsObjectContainer.gameObject.transform;
         this.transform.localScale = slotButton.inventoryItem.size;
     }
     public void OnDrag(PointerEventData eventData)

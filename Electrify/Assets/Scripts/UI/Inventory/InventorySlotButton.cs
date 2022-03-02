@@ -13,8 +13,8 @@ public class InventorySlotButton : MonoBehaviour, IPointerDownHandler
     [HideInInspector] public List<BarbedWire> barbedWireList;
     private static PhysicsEMManager physicsEMManager;
     [Header("Prefab")]
-    [SerializeField] private GameObject spherePrefab;
-    [SerializeField] private GameObject rodPrefab;
+    private static GameObject spherePrefab;
+    private static GameObject rodPrefab;
     private void Awake()
     {
         graphicRaycaster = GetComponent<GraphicRaycaster>();

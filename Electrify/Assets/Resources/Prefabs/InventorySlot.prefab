@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5850849332199521483}
   - component: {fileID: 1733903016069082139}
-  - component: {fileID: 3134668029211731245}
   - component: {fileID: -2136554585856506441}
   - component: {fileID: 3350322036118644}
   - component: {fileID: 952202187456635000}
+  - component: {fileID: 3134668029211731245}
   m_Layer: 5
   m_Name: InventorySlot
   m_TagString: Untagged
@@ -53,35 +53,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &3134668029211731245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5850849332199521484}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f496ca335733d6848b0e62fcdd16b558, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  graphicRaycaster: {fileID: 0}
-  inventoryManager: {fileID: 0}
-  inventoryItem:
-    itemType: 0
-    size: {x: 0, y: 0, z: 0}
-    chargeableObject: 0
-    particleType: 0
-    magnitude: 0
-    contactType: 0
-    movableObject: 0
-    mass: 0
-    pivotableObject: 0
-    pivotFromCenterAt: 0
-  item: {fileID: 0}
-  barbedWireList: []
-  spherePrefab: {fileID: 0}
-  rodPrefab: {fileID: 0}
 --- !u!223 &-2136554585856506441
 Canvas:
   m_ObjectHideFlags: 0
@@ -140,6 +111,35 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &3134668029211731245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5850849332199521484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f496ca335733d6848b0e62fcdd16b558, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  graphicRaycaster: {fileID: 0}
+  inventoryManager: {fileID: 0}
+  inventoryItem:
+    itemType: 0
+    size: {x: 0, y: 0, z: 0}
+    chargeableObject: 0
+    particleType: 0
+    magnitude: 0
+    contactType: 0
+    movableObject: 0
+    mass: 0
+    pivotableObject: 0
+    pivotFromCenterAt: 0
+  item: {fileID: 0}
+  barbedWireList: []
+  spherePrefab: {fileID: 0}
+  rodPrefab: {fileID: 0}
 --- !u!1 &5850849332232488481
 GameObject:
   m_ObjectHideFlags: 0

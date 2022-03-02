@@ -21,14 +21,11 @@ public class PhysicsEMManager : MonoBehaviour
 
     private float timeInterval = 1f / 60;
     [SerializeField] private GameObject FaradayContainer;
-
-    //private List<MovingParticle> movingParticleList;
-    //private List<MovingRod> movingRodList;
-
-    private List<Movable> movableObjectsList;
-    private List<ElectricField> electricFieldList; //point, rod, plane, uniform
-    private List<MagneticField> magneticFieldList; //point, wire, plane, uniform
-    private List<GameObject> faradayList;
+    public GameObject PhysicsObjectContainer;
+    [HideInInspector] public List<Movable> movableObjectsList;
+    [HideInInspector] public List<ElectricField> electricFieldList; //point, rod, plane, uniform
+    [HideInInspector] public List<MagneticField> magneticFieldList; //point, wire, plane, uniform
+    [HideInInspector] public List<GameObject> faradayList;
     void Start()
     {
         movableObjectsList = new List<Movable>(GetComponentsInChildren<Movable>());
