@@ -21,6 +21,7 @@ public class PhysicsEMManager : MonoBehaviour
 
     private float timeInterval = 1f / 60;
     [SerializeField] private GameObject FaradayContainer;
+    [SerializeField] private GameObject GilbertContainer;
 
     //private List<MovingParticle> movingParticleList;
     //private List<MovingRod> movingRodList;
@@ -29,6 +30,7 @@ public class PhysicsEMManager : MonoBehaviour
     private List<ElectricField> electricFieldList; //point, rod, plane, uniform
     private List<MagneticField> magneticFieldList; //point, wire, plane, uniform
     private List<GameObject> faradayList;
+    private List<GameObject> gilbertList;
     void Start()
     {
         movableObjectsList = new List<Movable>(GetComponentsInChildren<Movable>());
@@ -44,8 +46,17 @@ public class PhysicsEMManager : MonoBehaviour
                 faradayList.Add(faradayObjects.GetChild(i).gameObject);
             }
         }
+        gilbertList = new List<GameObject>();
+        if (GilbertContainer != null)
+        {
+            Transform gilbertObjects = GilbertContainer.transform;
+            for (int i = 0; i < gilbertObjects.childCount; i++)
+            {
+                gilbertList.Add(gilbertObjects.GetChild(i).gameObject);
+            }
+        }
 
-        foreach(Movable movable in movableObjectsList)
+        foreach (Movable movable in movableObjectsList)
         {
             StartCoroutine(Cycle(movable));
         }
@@ -111,9 +122,14 @@ public class PhysicsEMManager : MonoBehaviour
                     if (magneticField2.gameObject == movable.gameObject) continue;
                     if (magneticField2 is StraightWireMagneticField)
                     {
-                        combinedMagneticField += ((StraightWireMagneticField)magneticField2).GetFieldFromThisWireSegment(segment.position);
+                        if (gilbertList.Count == 0) combinedMagneticField += ((StraightWireMagneticField)magneticField2).GetFieldFromThisWireSegment(segment.position);
+                        else combinedMagneticField += ((StraightWireMagneticField)magneticField2).GetExposedFieldThisWireSegmentFromGilbert(segment.position, gilbertList);
                     }
-                    else combinedMagneticField += magneticField2.GetField(segment.position);
+                    else
+                    {
+                        if (gilbertList.Count == 0) combinedMagneticField += magneticField2.GetField(segment.position);
+                        else combinedMagneticField += magneticField2.GetExposedFieldFromGilbert(segment.position, gilbertList);
+                    }
                 }
                 Vector3 combinedMagneticforce = Vector3.Cross(combinedMagneticField, segment.current * (segment.length*segment.direction));
                 movable.rb.AddForceAtPosition(combinedMagneticforce, segment.position);
@@ -125,7 +141,8 @@ public class PhysicsEMManager : MonoBehaviour
             foreach (MagneticField magneticField in magneticFieldList)
             {
                 if (magneticField.gameObject == movable.gameObject) continue;
-                combinedMagneticField += magneticField.GetField(movable.transform.position);
+                if (gilbertList.Count == 0) combinedMagneticField += magneticField.GetField(movable.transform.position);
+                else combinedMagneticField += magneticField.GetExposedFieldFromGilbert(movable.transform.position, gilbertList);
             }
             //Unity uses a left-handed cross product. Need to flip F = qv x B -> F = B x qv for left-handed system.
             movable.rb.AddForce(Vector3.Cross(combinedMagneticField,movable.physicsObject.chargeable.charge * movable.rb.velocity));

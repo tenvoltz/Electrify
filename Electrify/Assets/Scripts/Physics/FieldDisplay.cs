@@ -22,9 +22,9 @@ public class FieldDisplay : MonoBehaviour
     public float strengthCap = 1;
     private float unitLength;
     private float unitWidth;
+    [Range(0.0f, 1.0f)] public float majoritySwitchThreshold = 1;
     private List<Vector3> fieldPoints;
     private List<GameObject> arrowObjects;
-    private Vector3 reorientation; //to orient sprite onto plane after aligning with field
     [SerializeField] private Sprite pointingArrow;
     [SerializeField] private Sprite outArrow;
     [SerializeField] private Sprite inArrow;
@@ -32,7 +32,9 @@ public class FieldDisplay : MonoBehaviour
     private List<ElectricField> electricFieldList;
     private List<MagneticField> magneticFieldList;
     [SerializeField] private GameObject FaradayContainer;
+    [SerializeField] private GameObject GilbertContainer;
     private List<GameObject> faradayList;
+    private List<GameObject> gilbertList;
     Gradient gradient;
     void Start()
     {
@@ -47,6 +49,15 @@ public class FieldDisplay : MonoBehaviour
             for (int i = 0; i < faradayObjects.childCount; i++)
             {
                 faradayList.Add(faradayObjects.GetChild(i).gameObject);
+            }
+        }
+        gilbertList = new List<GameObject>();
+        if (GilbertContainer != null)
+        {
+            Transform gilbertObjects = GilbertContainer.transform;
+            for (int i = 0; i < gilbertObjects.childCount; i++)
+            {
+                gilbertList.Add(gilbertObjects.GetChild(i).gameObject);
             }
         }
         setFieldPoints();
@@ -77,7 +88,7 @@ public class FieldDisplay : MonoBehaviour
         //debugDisplayPoints();
         //debugDisplayGrid();
         if (fieldType == FieldType.Electric) displayElectricFieldObjects(electricFieldList, faradayList);
-        else if (fieldType == FieldType.Magnetic) displayMagneticFieldObjects(magneticFieldList);
+        else if (fieldType == FieldType.Magnetic) displayMagneticFieldObjects(magneticFieldList, gilbertList);
         else displayNoFieldObjects();
     }
 
@@ -114,12 +125,12 @@ public class FieldDisplay : MonoBehaviour
             Vector3 electricFieldProjOntoPlaneNorm = Vector3.Dot(combinedElectricField, getPlaneNormal()) * getPlaneNormal();
             Vector3 electricFieldProjAlongPlane = combinedElectricField - electricFieldProjOntoPlaneNorm;
             arrowObjects[p].GetComponent<SpriteRenderer>().color = getColorFromFieldStrength(combinedElectricField.magnitude);
-            if (electricFieldProjAlongPlane.magnitude >= electricFieldProjOntoPlaneNorm.magnitude)
+            if (electricFieldProjAlongPlane.magnitude * majoritySwitchThreshold >= electricFieldProjOntoPlaneNorm.magnitude)
             {
                 arrowObjects[p].GetComponent<SpriteRenderer>().sprite = pointingArrow;
                 Quaternion toRotate = Quaternion.LookRotation(electricFieldProjAlongPlane, this.transform.up);
                 arrowObjects[p].transform.rotation = toRotate;
-                arrowObjects[p].transform.Rotate(reorientation); //realign with plane
+                arrowObjects[p].transform.Rotate(90,0,0,Space.Self);
             }
             else
             {
@@ -135,14 +146,15 @@ public class FieldDisplay : MonoBehaviour
         }
     }
 
-    private void displayMagneticFieldObjects(List<MagneticField> magneticFieldList)
+    private void displayMagneticFieldObjects(List<MagneticField> magneticFieldList, List<GameObject> gilbertList)
     {
         for (int p = 0; p < fieldPoints.Count; p++)
         {
             Vector3 combinedMagneticField = Vector3.zero;
             foreach (MagneticField magneticField in magneticFieldList)
             {
-                combinedMagneticField += magneticField.GetField(fieldPoints[p]);
+                if (gilbertList.Count == 0) combinedMagneticField += magneticField.GetField(fieldPoints[p]);
+                else combinedMagneticField += magneticField.GetExposedFieldFromGilbert(fieldPoints[p], gilbertList);
             }
             if (combinedMagneticField.magnitude == 0)
             {
@@ -152,12 +164,12 @@ public class FieldDisplay : MonoBehaviour
             Vector3 magneticFieldProjOntoPlaneNorm = Vector3.Dot(combinedMagneticField, getPlaneNormal()) * getPlaneNormal();
             Vector3 magneticFieldProjAlongPlane = combinedMagneticField - magneticFieldProjOntoPlaneNorm;
             arrowObjects[p].GetComponent<SpriteRenderer>().color = getColorFromFieldStrength(combinedMagneticField.magnitude);
-            if (magneticFieldProjAlongPlane.magnitude >= magneticFieldProjOntoPlaneNorm.magnitude)
+            if (magneticFieldProjAlongPlane.magnitude * majoritySwitchThreshold >= magneticFieldProjOntoPlaneNorm.magnitude)
             {
                 arrowObjects[p].GetComponent<SpriteRenderer>().sprite = pointingArrow;
                 Quaternion toRotate = Quaternion.LookRotation(magneticFieldProjAlongPlane, this.transform.up);
                 arrowObjects[p].transform.rotation = toRotate;
-                arrowObjects[p].transform.Rotate(reorientation); //realign with plane
+                arrowObjects[p].transform.Rotate(90, 0, 0, Space.Self);
             }
             else
             {
@@ -198,7 +210,6 @@ public class FieldDisplay : MonoBehaviour
             arrowObject.transform.SetParent(this.transform);
             arrowObject.transform.position = fieldPoints[i];
             arrowObject.transform.LookAt(arrowObject.transform.position - this.transform.up);
-            reorientation = arrowObject.transform.rotation.eulerAngles;
             arrowObjects.Add(arrowObject);
         }
     }

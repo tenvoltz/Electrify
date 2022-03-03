@@ -29,4 +29,13 @@ public class MovingChargeMagneticField : MagneticField
         }
         return field;
     }
+    public override Vector3 GetExposedFieldFromGilbert(Vector3 other, List<GameObject> gilbertObjects)
+    {
+        Vector3 pointToOther = other - this.transform.position;
+        if (IntersectGilbertCage(other, -pointToOther.normalized, pointToOther.magnitude, gilbertObjects))
+        {
+            return Vector3.zero;
+        }
+        else return GetField(other);
+    }
 }

@@ -10,4 +10,12 @@ public class UniformMagneticField : MagneticField
     {
         return strength * physicsObject.GetDirection();
     }
+    public override Vector3 GetExposedFieldFromGilbert(Vector3 other, List<GameObject> gilbertObjects)
+    {
+        if (IntersectGilbertCage(other, -physicsObject.GetDirection(), float.MaxValue, gilbertObjects))
+        {
+            return Vector3.zero;
+        }
+        else return GetField(other);
+    }
 }

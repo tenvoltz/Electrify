@@ -18,6 +18,15 @@ public class PlaneMagneticField : MagneticField
             return strength * direction;
         return Vector3.zero;
     }
+    public override Vector3 GetExposedFieldFromGilbert(Vector3 other, List<GameObject> gilbertObjects)
+    {
+        Vector3 pointToOther = other - this.transform.position;
+        if (IntersectGilbertCage(other, -GetPlaneNormal(), pointToOther.magnitude, gilbertObjects))
+        {
+            return Vector3.zero;
+        }
+        else return GetField(other);
+    }
     private void Awake()
     {
         if (GetComponent<MeshCollider>() != null) c = GetComponent<MeshCollider>();
