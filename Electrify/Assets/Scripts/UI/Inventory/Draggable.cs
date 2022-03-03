@@ -24,7 +24,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        this.transform.parent = GetPhysicsEMManager().gameObject.transform;
+        this.transform.parent = GetPhysicsEMManager().PhysicsObjectContainer.gameObject.transform;
         this.transform.localScale = slotButton.inventoryItem.size;
     }
     public void OnDrag(PointerEventData eventData)
@@ -48,7 +48,6 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             position.z = 0; //All objects lie on z = 0 plane
             this.transform.position = position;
             GetComponent<Collider>().enabled = true;
-            GetComponent<Conductable>().Init();
             physicsEMManager.AddPhysicsObject(this.gameObject);
             Destroy(slotButton.gameObject);
             inventoryManager.UpdateLayoutGroup();

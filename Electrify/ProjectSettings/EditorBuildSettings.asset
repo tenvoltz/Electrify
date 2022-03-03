@@ -5,6 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 0
+    path: Assets/Scenes/Testing/Testing Scene.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 0
+    path: Assets/Scenes/Testing/Daniel doesn't know what he's doing.unity
+    guid: 05df1c689b2d5d046812ee5312dd0198
   - enabled: 1
     path: Assets/Scenes/NeverUnload.unity
     guid: dc23f55e1a22a524e9afdc65f922fcf9
@@ -14,10 +20,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level 1.unity
     guid: 1782f2d4906a46748acef9112c27d085
-  - enabled: 0
-    path: Assets/Scenes/Testing Scene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 0
-    path: Assets/Scenes/Daniel doesn't know what he's doing.unity
-    guid: 05df1c689b2d5d046812ee5312dd0198
+  - enabled: 1
+    path: Assets/Scenes/Level 2.unity
+    guid: 5ac55ae8e9611354faf0360eb78aaaee
+  - enabled: 1
+    path: Assets/Scenes/Level 3.unity
+    guid: aa5bc34e3f5b0d44d9de289fe070d553
+  - enabled: 1
+    path: Assets/Scenes/Level 4.unity
+    guid: 17500f4a51a0e5e458a4b1a27e7f97c4
+  - enabled: 1
+    path: Assets/Scenes/Level 5.unity
+    guid: 194359dc3caa6b94fbf5fed92d659364
   m_configObjects: {}

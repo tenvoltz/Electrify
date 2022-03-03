@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1494927975783484}
   - component: {fileID: 1494927975783485}
   - component: {fileID: 1494927975783486}
-  - component: {fileID: 1494927975783482}
+  - component: {fileID: 1010730071229332356}
   m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
@@ -27,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1494927975783487}
-  m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -50, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 1, z: 10}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 5, z: -1.5}
+  m_LocalScale: {x: 2, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &1494927975783484
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -97,7 +97,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1494927975783482
+--- !u!114 &1010730071229332356
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -106,9 +106,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1494927975783487}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9273e2be7c28b94ca8bfcc89484e0e0, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ae349fca85b91e4bae1fecaaacbcee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fieldManager: {fileID: 0}
-  xSpace: 1
-  zSpace: 1
+  physicsEMManager: {fileID: 0}
+  fieldType: 1
+  numRows: 10
+  numCols: 10
+  strengthCap: 1
+  pointingArrow: {fileID: 21300000, guid: 70c97e3e5c87f13489a81f4c686182ce, type: 3}
+  outArrow: {fileID: 21300000, guid: 332a3a9ffb5c9ec4bb7b4cf902af12c3, type: 3}
+  inArrow: {fileID: 21300000, guid: 9119d23296ddc3649aaf0d1a65995e4c, type: 3}

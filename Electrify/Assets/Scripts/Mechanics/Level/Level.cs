@@ -8,12 +8,8 @@ public class Level : MonoBehaviour
     public string levelName;
     [TextArea(5, 10), Multiline()]
     public string levelDescription;
-    public bool isCompleted = false;
+    [HideInInspector] public bool isCompleted = false;
     public bool isLocked = true;
-    private void Awake()
-    {
-        updatePlayerPref();
-    }
     public void Completed()
     {
         isCompleted = true;
@@ -30,8 +26,6 @@ public class Level : MonoBehaviour
     {
         isLocked = false;
     }
-
-
     public void updatePlayerPref()
     {
         PlayerPrefs.SetString("Level" + ID + "isCompleted", isCompleted.ToString());

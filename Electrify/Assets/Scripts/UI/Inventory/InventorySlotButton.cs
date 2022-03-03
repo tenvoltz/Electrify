@@ -13,8 +13,8 @@ public class InventorySlotButton : MonoBehaviour, IPointerDownHandler
     [HideInInspector] public List<BarbedWire> barbedWireList;
     private static PhysicsEMManager physicsEMManager;
     [Header("Prefab")]
-    [SerializeField] private GameObject spherePrefab;
-    [SerializeField] private GameObject rodPrefab;
+    private static GameObject spherePrefab;
+    private static GameObject rodPrefab;
     private void Awake()
     {
         graphicRaycaster = GetComponent<GraphicRaycaster>();
@@ -84,7 +84,7 @@ public class InventorySlotButton : MonoBehaviour, IPointerDownHandler
             item.transform.localScale = new Vector3(buttonSize * 0.5f, buttonSize * 0.5f, buttonSize * 0.5f);
             item.transform.localRotation = Quaternion.Euler(0, 180, 0);
             ObjectUI UI = physicsObject.UI;
-            UI.UpdateSize(Vector3.one * 2);
+            UI.UpdateSize(Vector3.one);
         }
     }
     public void RetrieveInventoryItem(GameObject _item)
