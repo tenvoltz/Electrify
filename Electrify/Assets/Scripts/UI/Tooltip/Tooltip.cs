@@ -78,6 +78,7 @@ public class Tooltip : MonoBehaviour
 
         rectTransform.pivot = getPosition(tooltipPosition, pivotX, pivotY);
         transform.position = mousePosition;
+        Debug.Log(mousePosition);
     }
 
     private enum TooltipPosition{

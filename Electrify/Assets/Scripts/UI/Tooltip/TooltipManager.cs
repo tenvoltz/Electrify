@@ -5,9 +5,11 @@ using UnityEngine;
 public class TooltipManager : MonoBehaviour
 {
     private static TooltipManager current;
+    private Canvas canvas;
     public Tooltip tooltip;
     private void Awake()
     {
+        canvas = GetComponent<Canvas>();
         current = this;
     }
     public static void Show(string headerText = "", string descriptionText = "")

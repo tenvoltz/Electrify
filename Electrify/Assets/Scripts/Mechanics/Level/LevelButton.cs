@@ -9,7 +9,7 @@ using System;
 public class LevelButton : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     public int level;
-    public Level myLevel;
+    [HideInInspector] public Level myLevel;
 
     [Header("Interaction")]
     public Color OnHoverColor;
@@ -53,7 +53,7 @@ public class LevelButton : MonoBehaviour, IPointerDownHandler, IPointerEnterHand
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        LevelManager.Instance.moveToLevelByMainMenu(level);
+        if (!myLevel.isLocked) LevelManager.Instance.moveToLevelByMainMenu(level);
     }
     public void OnPointerDown(PointerEventData eventData)
     {

@@ -99,7 +99,7 @@ public class ObjectUI : MonoBehaviour
     }
     public void UpdateGoalColor(GoalDetector goalDetector)
     {
-        goal.GetComponent<Image>().color = goalDetector.GetComponentInChildren<Renderer>().material.color;
+        goal.GetComponent<Image>().color = goalDetector.color;
     }
 
 }

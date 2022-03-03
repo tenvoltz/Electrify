@@ -16,7 +16,7 @@ public class LevelManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        //LoadMainMenuScene();
+        LoadMainMenuScene();
         levels = new List<Level>(GetComponentsInChildren<Level>());
     }
     public Level GetLevel(int levelID)
@@ -44,16 +44,19 @@ public class LevelManager : MonoBehaviour
         else
         {
             StartCoroutine(switchFromSceneToScene("Level " + (nextLevel - 1), "Level " + nextLevel));
-            Level nextLevelState = levels[nextLevel - 1];
-            nextLevelState.Unlocked();
-            nextLevelState.updatePlayerPref();
-            if (nextLevel != 1)
-            {
-                Level currentLevelState = levels[nextLevel - 2];
-                currentLevelState.Completed();
-                currentLevelState.updatePlayerPref();
-            }     
         }
+    }
+    public void UpdateLevelState()
+    {
+        int currentLevel = getCurrentLevel();
+        Level currentLevelState = levels[currentLevel - 1];
+        currentLevelState.Completed();
+        currentLevelState.updatePlayerPref();
+        int nextLevel = currentLevel + 1;
+        if (nextLevel > levels.Count) return;
+        Level nextLevelState = levels[nextLevel - 1];
+        nextLevelState.Unlocked();
+        nextLevelState.updatePlayerPref();
     }
     public void moveToLevelByMainMenu(int level) 
     {

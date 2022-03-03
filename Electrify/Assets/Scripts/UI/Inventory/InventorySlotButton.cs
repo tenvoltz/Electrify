@@ -84,7 +84,7 @@ public class InventorySlotButton : MonoBehaviour, IPointerDownHandler
             item.transform.localScale = new Vector3(buttonSize * 0.5f, buttonSize * 0.5f, buttonSize * 0.5f);
             item.transform.localRotation = Quaternion.Euler(0, 180, 0);
             ObjectUI UI = physicsObject.UI;
-            UI.UpdateSize(Vector3.one * 2);
+            UI.UpdateSize(Vector3.one);
         }
     }
     public void RetrieveInventoryItem(GameObject _item)

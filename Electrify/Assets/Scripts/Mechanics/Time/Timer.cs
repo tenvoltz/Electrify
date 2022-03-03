@@ -6,14 +6,18 @@ using UnityEngine.UI;
 public class Timer : MonoBehaviour
 {
     [SerializeField] private Image circularFill;
+    private LTDescr countDown;
     private void Awake()
     {
+        Vector3 position = transform.position;
+        position.z = 1;
+        transform.position = position;
         GetComponent<RectTransform>().localScale = new Vector2(1,1);
         GetComponent<Canvas>().worldCamera = Camera.main;
     }
-    public void countDown(float duration, Action action)
+    public void CountDown(float duration, Action action)
     {
-        LeanTween.value(circularFill.gameObject, 0, 1, duration).setOnUpdate((float val) =>
+        countDown = LeanTween.value(circularFill.gameObject, 0, 1, duration).setOnUpdate((float val) =>
         {
             circularFill.fillAmount = 1 - val;
         }).setOnComplete(() =>
@@ -21,5 +25,11 @@ public class Timer : MonoBehaviour
             action();
             Destroy(gameObject);
         });
+    }
+
+    public void CancelCountDown()
+    {
+        LeanTween.cancel(countDown.uniqueId);
+        Destroy(gameObject);
     }
 }

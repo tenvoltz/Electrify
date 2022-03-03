@@ -14,8 +14,8 @@ public enum FieldType
 }
 public class FieldDisplay : MonoBehaviour
 {
-    [SerializeField] PhysicsEMManager physicsEMManager;
-    public FieldType fieldType;
+    private static PhysicsEMManager physicsEMManager;
+    [HideInInspector] public FieldType fieldType;
     public int numRows = 1;
     public int numCols = 1;
     public float strengthCap = 1;
@@ -30,6 +30,8 @@ public class FieldDisplay : MonoBehaviour
     private static Gradient gradient;
     void Start()
     {
+        GetPhysicsEMManager();
+        fieldType = FieldType.None;
         unitLength = GetLength() / numRows;
         unitWidth = GetWidth() / numCols;
         setFieldPoints();
@@ -160,6 +162,12 @@ public class FieldDisplay : MonoBehaviour
             arrowObject.transform.LookAt(arrowObject.transform.position - this.transform.up);
             arrowObjects.Add(arrowObject);
         }
+    }
+    public PhysicsEMManager GetPhysicsEMManager()
+    {
+        if (physicsEMManager == null)
+            physicsEMManager = FindObjectOfType<PhysicsEMManager>();
+        return physicsEMManager;
     }
     private float GetLength() // A standard plane is 10 x 10 unit
     {
