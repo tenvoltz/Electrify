@@ -15,6 +15,8 @@ public class InventoryListObject
     public float mass;
     public bool pivotableObject;
     public float pivotFromCenterAt;
+    public bool goalableObject;
+    public GoalDetector goal;
 }
 public enum ItemType
 {

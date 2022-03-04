@@ -50,6 +50,8 @@ public class InventoryListInspector : Editor
             SerializedProperty MyMass = MyListRef.FindPropertyRelative("mass");
             SerializedProperty MyPivotableObject = MyListRef.FindPropertyRelative("pivotableObject");
             SerializedProperty MyPivotFromCenterAt = MyListRef.FindPropertyRelative("pivotFromCenterAt");
+            SerializedProperty MyGoalableObject = MyListRef.FindPropertyRelative("goalableObject");
+            SerializedProperty MyGoal = MyListRef.FindPropertyRelative("goal");
 
             EditorGUILayout.PropertyField(MyItemType);
             EditorGUILayout.PropertyField(MySize);
@@ -70,6 +72,11 @@ public class InventoryListInspector : Editor
             {
                 MyMovableObject.boolValue = true;
                 EditorGUILayout.PropertyField(MyPivotFromCenterAt);
+            }
+            EditorGUILayout.PropertyField(MyGoalableObject);
+            if (MyGoalableObject.boolValue)
+            {
+                EditorGUILayout.PropertyField(MyGoal);
             }
             EditorGUILayout.Space();
 

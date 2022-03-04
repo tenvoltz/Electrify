@@ -52,6 +52,11 @@ public class InventorySlotButton : MonoBehaviour, IPointerDownHandler
             Pivotable pivotable = item.AddComponent<Pivotable>();
             pivotable.pivotFromCenterAt = inventoryItem.pivotFromCenterAt;
         }
+        if (inventoryItem.goalableObject)
+        {
+            Goalable goalable = item.AddComponent<Goalable>();
+            goalable.myGoal = inventoryItem.goal;
+        }
         SetDimensionInButtonMode(item);
         item.SetActive(true);
     }
