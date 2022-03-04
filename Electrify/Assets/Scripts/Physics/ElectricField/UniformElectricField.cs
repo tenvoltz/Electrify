@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class UniformElectricField : ElectricField
 {
+    public Vector3 worldDirection;
+    public float strength = 1;
     public override Vector3 GetField(Vector3 other)
     {
-        return chargeable.charge * physicsObject.GetDirection();
+        return strength * worldDirection;
     }
     public override Vector3 GetExposedFieldFromFaraday(Vector3 other, List<GameObject> faradayObjects)
     {

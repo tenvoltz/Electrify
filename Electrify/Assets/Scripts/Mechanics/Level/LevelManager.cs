@@ -12,11 +12,11 @@ public class LevelManager : MonoBehaviour
     public static GameObject timerPrefab;
     public FadeScreen loadingScreen;
     public FadeScreen winningScreen;
-    [SerializeField] private List<Level> levels;
+    private List<Level> levels;
     private void Awake()
     {
         Instance = this;
-        LoadMainMenuScene();
+        //LoadMainMenuScene();
         levels = new List<Level>(GetComponentsInChildren<Level>());
     }
     public Level GetLevel(int levelID)

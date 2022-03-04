@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Chargeable))]
 public class PointChargeElectricField : ElectricField
 {
     public override Vector3 GetField(Vector3 other)

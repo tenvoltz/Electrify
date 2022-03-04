@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Chargeable))]
 public abstract class ElectricField : MonoBehaviour
 {
     [HideInInspector] public PhysicsObject physicsObject;

@@ -14,17 +14,17 @@ public enum FieldType
 }
 public class FieldDisplay : MonoBehaviour
 {
-    public FieldType fieldType;
-    public int numRows = 1;
-    public int numCols = 1;
-    public float length = 1;
-    public float width = 1;
+    private static PhysicsEMManager physicsEMManager;
+    [HideInInspector] public FieldType fieldType;
+    public int numRows = 10;
+    public int numCols = 10;
     public float strengthCap = 1;
     private float unitLength;
     private float unitWidth;
     [Range(0.0f, 1.0f)] public float majoritySwitchThreshold = 1;
     private List<Vector3> fieldPoints;
     private List<GameObject> arrowObjects;
+    [Header("Sprite")]
     [SerializeField] private Sprite pointingArrow;
     [SerializeField] private Sprite outArrow;
     [SerializeField] private Sprite inArrow;
@@ -35,67 +35,31 @@ public class FieldDisplay : MonoBehaviour
     [SerializeField] private GameObject GilbertContainer;
     private List<GameObject> faradayList;
     private List<GameObject> gilbertList;
-    Gradient gradient;
+    private static Gradient gradient;
     void Start()
     {
-        unitLength = length / numRows;
-        unitWidth = width / numCols;
-        electricFieldList = new List<ElectricField>(FindObjectsOfType<ElectricField>());
-        magneticFieldList = new List<MagneticField>(FindObjectsOfType<MagneticField>());
-        faradayList = new List<GameObject>();
-        if (FaradayContainer != null)
-        {
-            Transform faradayObjects = FaradayContainer.transform;
-            for (int i = 0; i < faradayObjects.childCount; i++)
-            {
-                faradayList.Add(faradayObjects.GetChild(i).gameObject);
-            }
-        }
-        gilbertList = new List<GameObject>();
-        if (GilbertContainer != null)
-        {
-            Transform gilbertObjects = GilbertContainer.transform;
-            for (int i = 0; i < gilbertObjects.childCount; i++)
-            {
-                gilbertList.Add(gilbertObjects.GetChild(i).gameObject);
-            }
-        }
+        GetPhysicsEMManager();
+        fieldType = FieldType.None;
+        unitLength = GetLength() / numRows;
+        unitWidth = GetWidth() / numCols;
+        GetGradient();
         setFieldPoints();
         setArrowObjects();
-
-        gradient = new Gradient();
-        Color orange = new Color(255, 141, 0, 1);
-        //Color indigo = new Color(75, 0, 130);
-        //Color violet = new Color(118, 1, 136);
-        //Color[] rainbow = { Color.red, orange, Color.yellow, Color.green, Color.blue, indigo, violet };
-        Color[] rainbow = { Color.blue, Color.green, Color.yellow, orange, Color.red };
-        GradientColorKey[] colorKey = new GradientColorKey[rainbow.Length];
-        for (int c = 0; c < rainbow.Length; c++)
-        {
-            colorKey[c].color = rainbow[c];
-            colorKey[c].time = c / (rainbow.Length - 1.0f);
-        }
-        GradientAlphaKey[] alphaKey = new GradientAlphaKey[2];
-        alphaKey[0].alpha = 1.0f;
-        alphaKey[0].time = 0.0f;
-        alphaKey[1].alpha = 1.0f;
-        alphaKey[1].time = 1.0f;
-        gradient.SetKeys(colorKey, alphaKey);
     }
     private void Update()
     {
         //debugDisplayBounds();
         //debugDisplayPoints();
         //debugDisplayGrid();
-        if (fieldType == FieldType.Electric) displayElectricFieldObjects(electricFieldList, faradayList);
-        else if (fieldType == FieldType.Magnetic) displayMagneticFieldObjects(magneticFieldList, gilbertList);
+        if (fieldType == FieldType.Electric) displayElectricFieldObjects(physicsEMManager.electricFieldList, physicsEMManager.faradayList);
+        else if (fieldType == FieldType.Magnetic) displayMagneticFieldObjects(physicsEMManager.magneticFieldList, physicsEMManager.gilbertList);
         else displayNoFieldObjects();
     }
 
     private Color getColorFromFieldStrength(float magnitude)
     {
         float time = Mathf.InverseLerp(0, strengthCap, magnitude);
-        Color arrowColor = gradient.Evaluate(time);
+        Color arrowColor = GetGradient().Evaluate(time);
         return arrowColor;
     }
 
@@ -193,9 +157,9 @@ public class FieldDisplay : MonoBehaviour
         {
             for (int c = 0; c < numCols; c++)
             {
-                float xPos = (localPosition[0] - width / 2 + unitWidth / 2) + c * unitWidth;
-                float zPos = (localPosition[1] - length / 2 + unitLength / 2) + r * unitLength;
-                Vector3 localPoint = new Vector3(xPos, 0, zPos);
+                float xPos = (localPosition[0] - GetWidth() / 2 + unitWidth / 2) + c * unitWidth;
+                float zPos = (localPosition[1] - GetLength() / 2 + unitLength / 2) + r * unitLength;
+                Vector3 localPoint = new Vector3(xPos, 1.5f, zPos);
                 fieldPoints.Add(transform.TransformPoint(localPoint));
             }
         }
@@ -218,7 +182,14 @@ public class FieldDisplay : MonoBehaviour
     {
         return transform.TransformDirection(Vector3.up);
     }
-
+    private float GetLength() // A standard plane is 10 x 10 unit
+    {
+        return transform.localScale[0] * 10;
+    }
+    private float GetWidth()
+    {
+        return transform.localScale[2] * 10;
+    }
     private void debugDisplayPoints()
     {
         foreach (Vector3 point in fieldPoints)
@@ -228,28 +199,60 @@ public class FieldDisplay : MonoBehaviour
     }
     private void debugDisplayBounds()
     {
-        Vector3 topLeft = transform.TransformPoint(new Vector3(-width / 2, 0, length / 2));
-        Vector3 topRight = transform.TransformPoint(new Vector3(width / 2, 0, length / 2));
-        Vector3 botLeft = transform.TransformPoint(new Vector3(-width / 2, 0, -length / 2));
-        Vector3 botRight = transform.TransformPoint(new Vector3(width / 2, 0, -length / 2));
-        Debug.DrawRay(topLeft, width * transform.TransformDirection(Vector3.right), Color.red);
-        Debug.DrawRay(topRight, length * transform.TransformDirection(Vector3.back), Color.red);
-        Debug.DrawRay(botRight, width * transform.TransformDirection(Vector3.left), Color.red);
-        Debug.DrawRay(botLeft, length * transform.TransformDirection(Vector3.forward), Color.red);
+        Vector3 topLeft = transform.TransformPoint(new Vector3(-GetWidth() / 2, 0, GetLength() / 2));
+        Vector3 topRight = transform.TransformPoint(new Vector3(GetWidth() / 2, 0, GetLength() / 2));
+        Vector3 botLeft = transform.TransformPoint(new Vector3(-GetWidth() / 2, 0, -GetLength() / 2));
+        Vector3 botRight = transform.TransformPoint(new Vector3(GetWidth() / 2, 0, -GetLength() / 2));
+        Debug.DrawRay(topLeft, GetWidth() * transform.TransformDirection(Vector3.right), Color.red);
+        Debug.DrawRay(topRight, GetLength() * transform.TransformDirection(Vector3.back), Color.red);
+        Debug.DrawRay(botRight, GetWidth() * transform.TransformDirection(Vector3.left), Color.red);
+        Debug.DrawRay(botLeft, GetLength() * transform.TransformDirection(Vector3.forward), Color.red);
     }
     private void debugDisplayGrid()
     {
         for (int r = 0; r <= numRows; r++)
         {
-            float zPos = (-length / 2) + r * unitLength;
-            Vector3 rowPoint = transform.TransformPoint(new Vector3(-width / 2, 0, zPos));
-            Debug.DrawRay(rowPoint, width * transform.TransformDirection(Vector3.right), Color.green);
+            float zPos = (-GetLength() / 2) + r * unitLength;
+            Vector3 rowPoint = transform.TransformPoint(new Vector3(-GetWidth() / 2, 0, zPos));
+            Debug.DrawRay(rowPoint, GetWidth() * transform.TransformDirection(Vector3.right), Color.green);
         }
         for (int c = 0; c <= numCols; c++)
         {
-            float xPos = (-width / 2) + c * unitWidth;
-            Vector3 colPoint = transform.TransformPoint(new Vector3(xPos, 0, -length / 2));
-            Debug.DrawRay(colPoint, length * transform.TransformDirection(Vector3.forward), Color.green);
+            float xPos = (-GetWidth() / 2) + c * unitWidth;
+            Vector3 colPoint = transform.TransformPoint(new Vector3(xPos, 0, -GetLength() / 2));
+            Debug.DrawRay(colPoint, GetLength() * transform.TransformDirection(Vector3.forward), Color.green);
         }
+    }
+    public PhysicsEMManager GetPhysicsEMManager()
+    {
+        if (physicsEMManager == null)
+            physicsEMManager = FindObjectOfType<PhysicsEMManager>();
+        return physicsEMManager;
+    }
+    private static Gradient GetGradient()
+    {
+        if (gradient == null)
+        {
+            Gradient rainbowGradient = new Gradient();
+            Color orange = new Color(255, 141, 0, 1);
+            //Color indigo = new Color(75, 0, 130);
+            //Color violet = new Color(118, 1, 136);
+            //Color[] rainbow = { Color.red, orange, Color.yellow, Color.green, Color.blue, indigo, violet };
+            Color[] rainbow = { Color.blue, Color.green, Color.yellow, orange, Color.red };
+            GradientColorKey[] colorKey = new GradientColorKey[rainbow.Length];
+            for (int c = 0; c < rainbow.Length; c++)
+            {
+                colorKey[c].color = rainbow[c];
+                colorKey[c].time = c / (rainbow.Length - 1.0f);
+            }
+            GradientAlphaKey[] alphaKey = new GradientAlphaKey[2];
+            alphaKey[0].alpha = 1.0f;
+            alphaKey[0].time = 0.0f;
+            alphaKey[1].alpha = 1.0f;
+            alphaKey[1].time = 1.0f;
+            rainbowGradient.SetKeys(colorKey, alphaKey);
+            gradient = rainbowGradient;
+        }
+        return gradient;
     }
 }

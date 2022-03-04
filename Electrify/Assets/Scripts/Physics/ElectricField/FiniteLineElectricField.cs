@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
-
+[RequireComponent(typeof(Chargeable))]
 public class FiniteLineElectricField: ElectricField
 {
     /*

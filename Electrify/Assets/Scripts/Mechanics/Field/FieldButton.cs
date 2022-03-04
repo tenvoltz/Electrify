@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class FieldButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
+    public FieldButton otherButton;
     private FieldDisplay fieldDisplayer;
     public FieldType fieldType;
     [Header("Sprite")]
@@ -19,7 +20,7 @@ public class FieldButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     public Color InEffectColor;
     private RectTransform rectTransform;
     private Image image;
-    private bool isPressed = false;
+    [HideInInspector] public bool isPressed = false;
     private void Awake()
     {
         fieldDisplayer = FindObjectOfType<FieldDisplay>();
@@ -59,7 +60,11 @@ public class FieldButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     {
         isPressed = !isPressed;
         SetSprite();
-        if (isPressed) fieldDisplayer.fieldType = fieldType;
-        else if(fieldDisplayer.fieldType == fieldType) fieldDisplayer.fieldType = FieldType.None;
+        if (isPressed) { 
+            fieldDisplayer.fieldType = fieldType;
+            otherButton.isPressed = false;
+            otherButton.SetDefaultColor();
+        }
+        else if (fieldDisplayer.fieldType == fieldType) fieldDisplayer.fieldType = FieldType.None;
     }
 }

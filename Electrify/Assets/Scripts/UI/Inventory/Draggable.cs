@@ -48,6 +48,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             position.z = 0; //All objects lie on z = 0 plane
             this.transform.position = position;
             GetComponent<Collider>().enabled = true;
+            GetComponent<Conductable>()?.Init();
             physicsEMManager.AddPhysicsObject(this.gameObject);
             Destroy(slotButton.gameObject);
             inventoryManager.UpdateLayoutGroup();
