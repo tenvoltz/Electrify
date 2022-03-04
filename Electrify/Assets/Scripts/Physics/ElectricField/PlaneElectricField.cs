@@ -58,10 +58,12 @@ public class PlaneElectricField : ElectricField
             if (Vector3.Angle(GetPlaneNormal(), worldDirection) == 0)
             {
                 arrowObjects[p].GetComponent<SpriteRenderer>().sprite = outArrow;
+                arrowObjects[p].transform.Rotate(90, 0, 0, Space.Self);
             }
             else if(Vector3.Angle(GetPlaneNormal(), worldDirection) == 180)
             {
                 arrowObjects[p].GetComponent<SpriteRenderer>().sprite = inArrow;
+                arrowObjects[p].transform.Rotate(90, 0, 0, Space.Self);
             }
             else
             {
