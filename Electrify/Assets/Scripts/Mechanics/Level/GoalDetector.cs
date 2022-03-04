@@ -31,7 +31,7 @@ public class GoalDetector : MonoBehaviour
         {
             if(other.GetComponent<Goalable>().myGoal.gameObject == gameObject)
             {
-                Vector3 position = transform.position + transform.TransformDirection(new Vector3(1, 1, 0)) * 2;
+                Vector3 position = transform.position + transform.TransformDirection(new Vector3(2f, 0, 0));
                 GameObject timerObject = Instantiate(LevelManager.Instance.getTimerPrefab(), position, Quaternion.identity);
                 timerObject.transform.SetParent(transform, true);
                 myTimer = timerObject.GetComponent<Timer>();
