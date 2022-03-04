@@ -16,7 +16,7 @@ public class LevelManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        //LoadMainMenuScene();
+        LoadMainMenuScene();
         levels = new List<Level>(GetComponentsInChildren<Level>());
     }
     public Level GetLevel(int levelID)
