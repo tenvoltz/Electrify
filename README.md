@@ -19,7 +19,9 @@ The game, developed in Unity, will features a variety of puzzle related to conce
 
 ## Credits
 Lead Programmer - Tan Vo, [Daniel Nguyen](https://github.com/CrazEpic)
+
 Artists/UI Designer - Tan Vo
+
 Physics Programmer - Tan Vo, [Daniel Nguyen](https://github.com/CrazEpic)
 
 ## Media
