@@ -15,14 +15,14 @@ The game, developed in Unity, will features a variety of puzzle related to conce
 3. Objects which can block electric field and magnetic field
 4. Various UI elements to enhance the user experience
 5. Handcrafted iconography and UI elements
-6. 15 levels testing various concepts of repulsion/attraction, conduction/insulation, magnetic/electric field, etc.
+6. 13 levels testing various concepts of repulsion/attraction, conduction/insulation, magnetic/electric field, etc.
 
 ## Credits
-Lead Programmer - Tan Vo, [Daniel Nguyen](https://github.com/CrazEpic)
+Lead Programmer - [Tan Vo](https://github.com/tenvoltz), [Daniel Nguyen](https://github.com/CrazEpic)
 
-Artists/UI Designer - Tan Vo
+Artists/UI Designer - [Tan Vo](https://github.com/tenvoltz)
 
-Physics Programmer - Tan Vo, [Daniel Nguyen](https://github.com/CrazEpic)
+Physics Programmer - [Tan Vo](https://github.com/tenvoltz), [Daniel Nguyen](https://github.com/CrazEpic)
 
 ## Media
 <div class="flex-container">
